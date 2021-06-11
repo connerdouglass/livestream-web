@@ -1,7 +1,52 @@
-<ng-container *ngIf="meta$ | async as meta">
-    {{ meta | json }}
-    <h1>{{ meta.username }}</h1>
-    <app-video-player
-        *ngIf="meta.live_stream"
-        [src]="playback_service.getStreamUrl(meta.live_stream.identifier)"></app-video-player>
-</ng-container>
+<div class="creator-profile">
+    <div class="profile">
+
+        <ng-template #profile_loading>Loading...</ng-template>
+
+        <ng-container *ngIf="meta$ | async as meta; else: profile_loading">
+
+            <div class="stream-section">
+                <div
+                    *ngIf="meta.live_stream"
+                    class="video-wrap">
+                    <app-video-player
+                        [src]="playback_service.getStreamUrl(meta.live_stream.identifier)"></app-video-player>
+                </div>
+                <div
+                    *ngIf="!meta.live_stream"
+                    class="offline-notice">
+                    Stream is currently offline
+                </div>
+            </div>
+
+            <div class="creator-section">
+                <div class="left">
+                    <div class="image"></div>
+                </div>
+                <div class="center">
+                    <div class="text-wrap">
+                        <div class="text">
+                            <div class="name">{{ meta.name }}</div>
+                            <div class="stream-info">
+                                <!-- {{  }} -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right">
+
+                </div>
+            </div>
+
+        </ng-container>
+
+    </div>
+    <div class="livechat">
+        <div class="heading">Live Chat</div>
+        <div class="content">
+            <br />
+            <br />
+            Live chat feed
+        </div>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+@mixin responsive-smaller($size)
+{
+	@media only screen and (max-width: $size - 1px) {@content;}
+}
+
+@mixin responsive-larger($size)
+{
+	@media only screen and (min-width: $size) {@content;}
+}
+
+@mixin responsive-inner($breakpoints, $media)
+{
+	// If the key exists
+	@if map-has-key($breakpoints, $media)
+	{
+		// Get the sizes for the breakpoint
+		$breakpoint-sizes: map-get($breakpoints, $media);
+
+		// Get the size range for the breakpoint
+		$min-bp: nth($breakpoint-sizes, 1);
+		$max-bp: nth($breakpoint-sizes, 2);
+
+		// If the max value is positive
+		@if $max-bp > 0
+		{
+			@if $min-bp == 0
+			{
+				@media only screen and (max-width: #{$max-bp - 1}px) {@content;}
+			}
+			@else
+			{
+				@media only screen and (min-width: #{$min-bp}px) and (max-width: #{$max-bp - 1}px) {@content;}
+			}
+		}
+		@else
+		{
+			@media only screen and (min-width: #{$min-bp}px) {@content;}
+		}
+	}
+}
+
+@mixin responsive($medias...)
+{
+	// Mark the cutoff points
+	$cutoffs: (400, 850, 1000);
+
+	// Define the breakpoints
+	$breakpoints: (
+
+		// Raw sizes
+		small: (0, nth($cutoffs, 1)),
+		medium: (nth($cutoffs, 1), nth($cutoffs, 2)),
+		large: (nth($cutoffs, 2), nth($cutoffs, 3)),
+		xlarge: (nth($cutoffs, 3), -1),
+
+		// Combined size groups
+		mobile: (0, nth($cutoffs, 2)), // small || medium
+		desktop: (nth($cutoffs, 2), -1), // large || xlarge
+
+		// Sub-sizes of groups
+		phone: (0, nth($cutoffs, 1)),
+		tablet: (nth($cutoffs, 1), nth($cutoffs, 2)),
+		desktop-sd: (nth($cutoffs, 2), nth($cutoffs, 3)),
+		desktop-hd: (nth($cutoffs, 3), -1)
+
+	);
+	@each $media in $medias {
+		@include responsive-inner($breakpoints, $media) {
+			@content;
+		}
+	}
+}
