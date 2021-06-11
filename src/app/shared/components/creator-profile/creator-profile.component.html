@@ -1,5 +1,7 @@
 <ng-container *ngIf="meta$ | async as meta">
     {{ meta | json }}
     <h1>{{ meta.username }}</h1>
-    <app-video-player src="http://localhost:8081/hls/helloworld/index.m3u8"></app-video-player>
+    <app-video-player
+        *ngIf="meta.live_stream"
+        [src]="playback_service.getStreamUrl(meta.live_stream.identifier)"></app-video-player>
 </ng-container>

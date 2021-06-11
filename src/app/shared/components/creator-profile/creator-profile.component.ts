@@ -33,7 +33,7 @@ export class CreatorProfileComponent {
 
 	public constructor(
 		private creators_service: CreatorsService,
-		private playback_service: PlaybackService,
+		public playback_service: PlaybackService,
 	) {}
 
 }
