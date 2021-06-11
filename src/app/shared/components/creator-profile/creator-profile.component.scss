@@ -93,9 +93,44 @@
 
                         > .name
                         {
-                            font-size: 110%;
+                            font-size: 130%;
                             font-weight: 600;
                             color: #FFF;
+                        }
+
+                        > .stream-info
+                        {
+                            $info-height: 24px;
+
+                            height: $info-height;
+                            line-height: $info-height;
+                            font-weight: 600;
+                            color: #FFF;
+                            margin-top: 8px;
+
+                            > .badge
+                            {
+                                display: inline-block;
+                                height: $info-height;
+                                vertical-align: middle;
+                                border-radius: 4px;
+                                padding: 0 10px;
+                                font-size: 90%;
+                                font-weight: 600;
+                                margin-right: 10px;
+
+                                &.live
+                                {
+                                    background-color: #F33;
+                                    color: #FFF;
+                                }
+
+                                &.upcoming
+                                {
+                                    background-color: #444;
+                                    color: #FFF;
+                                }
+                            }
                         }
                     }
                 }

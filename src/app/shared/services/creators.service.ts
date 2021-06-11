@@ -11,6 +11,12 @@ export interface ICreatorMeta {
         title: string;
         scheduled_start_date: number;
     };
+    next_stream: null | {
+        id: number;
+        identifier: string;
+        title: string;
+        scheduled_start_date: number;
+    };
 }
 
 @Injectable()

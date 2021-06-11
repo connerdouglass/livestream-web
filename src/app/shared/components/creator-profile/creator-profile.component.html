@@ -27,8 +27,15 @@
                     <div class="text-wrap">
                         <div class="text">
                             <div class="name">{{ meta.name }}</div>
-                            <div class="stream-info">
-                                <!-- {{  }} -->
+                            <div class="stream-info" *ngIf="meta.live_stream || meta.next_stream">
+                                <ng-container *ngIf="meta.live_stream">
+                                    <div class="badge live">LIVE</div>
+                                    <span>{{ meta.live_stream.title }}</span>
+                                </ng-container>
+                                <ng-container *ngIf="meta.next_stream && !meta.live_stream">
+                                    <div class="badge upcoming">UPCOMING</div>
+                                    <span>{{ meta.next_stream.title }}</span>
+                                </ng-container>
                             </div>
                         </div>
                     </div>
