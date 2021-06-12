@@ -1,59 +1,62 @@
-<div class="creator-profile">
+<ng-template #profile_loading>Loading...</ng-template>
+
+<div
+    class="creator-profile"
+    *ngIf="meta$ | async as meta; else: profile_loading">
     <div class="profile">
 
-        <ng-template #profile_loading>Loading...</ng-template>
-
-        <ng-container *ngIf="meta$ | async as meta; else: profile_loading">
-
-            <div class="stream-section">
-                <div
-                    *ngIf="meta.live_stream"
-                    class="video-wrap">
-                    <app-video-player
-                        [src]="playback_service.getStreamUrl(meta.live_stream.identifier)"></app-video-player>
-                </div>
-                <div
-                    *ngIf="!meta.live_stream"
-                    class="offline-notice">
-                    Stream is currently offline
-                </div>
+        <div class="stream-section">
+            <div
+                *ngIf="meta.live_stream"
+                class="video-wrap">
+                <app-video-player
+                    [src]="playback_service.getStreamUrl(meta.live_stream.identifier)"></app-video-player>
             </div>
+            <div
+                *ngIf="!meta.live_stream"
+                class="offline-notice">
+                Stream is currently offline
+            </div>
+        </div>
 
-            <div class="creator-section">
-                <div class="left">
-                    <div class="image"></div>
-                </div>
-                <div class="center">
-                    <div class="text-wrap">
-                        <div class="text">
-                            <div class="name">{{ meta.name }}</div>
-                            <div class="stream-info" *ngIf="meta.live_stream || meta.next_stream">
-                                <ng-container *ngIf="meta.live_stream">
-                                    <div class="badge live">LIVE</div>
-                                    <span>{{ meta.live_stream.title }}</span>
-                                </ng-container>
-                                <ng-container *ngIf="meta.next_stream && !meta.live_stream">
-                                    <div class="badge upcoming">UPCOMING</div>
-                                    <span>{{ meta.next_stream.title }}</span>
-                                </ng-container>
-                            </div>
+        <div class="creator-section">
+            <div class="left">
+                <div class="image"></div>
+            </div>
+            <div class="center">
+                <div class="text-wrap">
+                    <div class="text">
+                        <div class="name">{{ meta.name }}</div>
+                        <div class="stream-info" *ngIf="meta.live_stream || meta.next_stream">
+                            <ng-container *ngIf="meta.live_stream">
+                                <div class="badge live">LIVE</div>
+                                <span>{{ meta.live_stream.title }}</span>
+                            </ng-container>
+                            <ng-container *ngIf="meta.next_stream && !meta.live_stream">
+                                <div class="badge upcoming">UPCOMING</div>
+                                <span>{{ meta.next_stream.title }}</span>
+                            </ng-container>
                         </div>
                     </div>
                 </div>
-                <div class="right">
-
-                </div>
             </div>
+            <div class="right">
 
-        </ng-container>
+            </div>
+        </div>
 
     </div>
     <div class="livechat">
         <div class="heading">Live Chat</div>
         <div class="content">
-            <br />
-            <br />
-            Live chat feed
+            <app-live-chat
+                *ngIf="meta.live_stream"
+                [stream_id]="meta.live_stream.identifier"></app-live-chat>
+            <div
+                *ngIf="!meta.live_stream"
+                class="no-chat">
+                Live chat is closed
+            </div>
         </div>
     </div>
 </div>

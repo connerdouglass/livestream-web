@@ -63,3 +63,6 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+// This polyfill makes socket.io-client happy
+(window as any).global = window;
