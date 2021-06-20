@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, distinctUntilKeyChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { CreatorsService } from '../../services/creators.service';
 import { PlaybackService } from '../../services/playback.service';
 
@@ -25,6 +25,16 @@ export class CreatorProfileComponent {
 		.pipe(shareReplay(1));
 
 	/**
+	 * Observable for the live stream HLS url
+	 */
+	public readonly stream_url$ = this.meta$
+		.pipe(map(meta => meta.live_stream?.identifier))
+		.pipe(filter((identifier): identifier is string => !!identifier))
+		.pipe(distinctUntilChanged())
+		.pipe(map(identifier => this.playback_service.getStreamUrl(identifier)))
+		.pipe(shareReplay(1));
+
+	/**
 	 * The username of the creator profile to load
 	 */
 	@Input('username') public set u(username: string) {
@@ -33,7 +43,7 @@ export class CreatorProfileComponent {
 
 	public constructor(
 		private creators_service: CreatorsService,
-		public playback_service: PlaybackService,
+		private playback_service: PlaybackService,
 	) {}
 
 }

@@ -10,4 +10,7 @@ Stream Control Panel
     <button
         *ngIf="stream.streaming && stream.status !== 'live'"
         (click)="start_stream(stream.identifier)">Go Live</button>
+    <button
+        *ngIf="stream.status === 'live'"
+        (click)="stop_stream(stream.identifier)">End Stream</button>
 </div>

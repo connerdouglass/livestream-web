@@ -44,4 +44,13 @@ export class DashStreamComponent {
 		);
 	}
 
+	public async stop_stream(
+		stream_identifier: string,
+	): Promise<void> {
+		await this.studio_service.set_stream_status(
+			stream_identifier,
+			'ended',
+		);
+	}
+
 }

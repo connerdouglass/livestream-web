@@ -10,7 +10,7 @@
                 *ngIf="meta.live_stream"
                 class="video-wrap">
                 <app-video-player
-                    [src]="playback_service.getStreamUrl(meta.live_stream.identifier)"></app-video-player>
+                    [src]="$any(stream_url$ | async)"></app-video-player>
             </div>
             <div
                 *ngIf="!meta.live_stream"

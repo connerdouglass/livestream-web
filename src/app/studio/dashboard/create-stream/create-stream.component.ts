@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { StudioService } from 'src/app/shared/services/studio.service';
 
 @Component({
