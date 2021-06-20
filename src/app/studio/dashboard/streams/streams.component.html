@@ -1,0 +1,10 @@
+Streams list
+
+<div class="streams">
+    <div
+        *ngFor="let stream of studio_service.all_streams$ | async"
+        class="stream"
+        routerLink="/studio/stream/{{ stream.identifier }}">
+        <h3>{{ stream.title }}</h3>
+    </div>
+</div>

@@ -7,12 +7,16 @@ import { CreatorProfileComponent } from './components/creator-profile/creator-pr
 import { LiveChat } from './components/live-chat/live-chat.component';
 import { StudioLoginForm } from './components/studio-login-form/studio-login-form.component';
 import { VideoPlayer } from './components/video-player/video-player.component';
+import { AdminRequiredGuard } from './guards/admin-required.guard';
+import { AuthRequiredGuard } from './guards/auth-required.guard';
+import { UnauthRequiredGuard } from './guards/unauth-required.guard';
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { AuthTokenService } from './services/auth_token.service';
 import { CreatorsService } from './services/creators.service';
 import { PlaybackService } from './services/playback.service';
 import { SocketService } from './services/socket.service';
+import { StudioService } from './services/studio.service';
 
 @NgModule({
 	declarations: [
@@ -45,6 +49,10 @@ export class SharedModule {
 				CreatorsService,
 				PlaybackService,
 				SocketService,
+				StudioService,
+                AdminRequiredGuard,
+                AuthRequiredGuard,
+                UnauthRequiredGuard,
 			],
 		};
 	}

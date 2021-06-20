@@ -1,13 +1,20 @@
 import { Injectable } from "@angular/core";
-import { Subject, Observable, merge } from "rxjs";
+import { Subject, Observable, merge, of } from "rxjs";
 import { shareReplay, map } from "rxjs/operators";
 import { ApiService } from "./api.service";
 import { AuthTokenService } from "./auth_token.service";
+
+interface ICreatorProfile {
+    id: number;
+    username: string;
+    name: string;
+}
 
 export interface IWhoAmI {
     id: number;
     username: string;
     token: string;
+    creators: ICreatorProfile[];
 }
 
 @Injectable()
@@ -66,6 +73,22 @@ export class AuthService {
      */
     public readonly logged_in$: Observable<boolean> = this.whoami$
         .pipe(map(me => me !== null))
+        .pipe(shareReplay(1));
+
+    /**
+     * Observable to whether or not the logged in user is an admin. Currently disabled
+     */
+    public readonly is_admin$: Observable<boolean> = of(false);
+
+    /**
+     * Observable to the currently selected creator profile controlled by the local user
+     */
+    public readonly active_creator$: Observable<ICreatorProfile | null> = this.whoami$
+        .pipe(map(me => {
+            if (!me) return null;
+            if (me.creators.length === 0) return null;
+            return me.creators[0];
+        }))
         .pipe(shareReplay(1));
 
     public constructor(
