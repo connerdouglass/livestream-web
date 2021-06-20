@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { interval, merge, of, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, distinctUntilKeyChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { CreatorsService } from '../../services/creators.service';
 import { PlaybackService } from '../../services/playback.service';
@@ -21,7 +21,12 @@ export class CreatorProfileComponent {
 	 */
 	public meta$ = this.username$
 		.pipe(distinctUntilChanged())
-		.pipe(switchMap(username => this.creators_service.getCreatorMeta(username)))
+		.pipe(switchMap(username => {
+			return merge(
+				of(0),
+				interval(5000),
+			).pipe(switchMap(() => this.creators_service.getCreatorMeta(username)))
+		}))
 		.pipe(shareReplay(1));
 
 	/**
