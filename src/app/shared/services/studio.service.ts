@@ -48,4 +48,21 @@ export class StudioService {
         });
     }
 
+    public async create_stream(creator_id: number, options: {
+        title: string;
+        scheduled_start_date: number;
+    }): Promise<IStream> {
+        return this.api_service.fetch<IStream>('/v1/studio/stream/create', {
+            creator_id,
+            options,
+        });
+    }
+
+    public async set_stream_status(stream_identifier: string, status: string): Promise<void> {
+        await this.api_service.fetch('/v1/studio/stream/set-status', {
+            stream_id: stream_identifier,
+            status,
+        });
+    }
+
 }

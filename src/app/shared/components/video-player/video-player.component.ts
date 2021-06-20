@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
 import Hls from 'hls.js';
 
 @Component({
@@ -14,6 +14,11 @@ export class VideoPlayer {
     private hls = new Hls();
 
     /**
+     * The source URL is always provided before the video element
+     */
+    private source_url!: string;
+
+    /**
      * The actual video element on the component
      */
     private video_element?: HTMLVideoElement;
@@ -24,7 +29,19 @@ export class VideoPlayer {
     @ViewChild('video') public set v(video_element: ElementRef<HTMLVideoElement> | undefined) {
         this.video_element = video_element?.nativeElement;
         if (this.video_element) {
-            this.hls.attachMedia(this.video_element);
+            if (Hls.isSupported()) {
+                this.hls.attachMedia(this.video_element);
+                this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
+                    this.video_element!.muted = true;
+                    this.video_element?.play();
+                });
+            } else {
+                this.video_element.src = this.source_url;
+                this.video_element.addEventListener('canplay', () => {
+                    this.video_element!.muted = true;
+                    this.video_element?.play()
+                });
+            }
         }
     }
 
@@ -33,6 +50,7 @@ export class VideoPlayer {
      */
     @Input('src') public set src(src: string) {
         this.hls.loadSource(src);
+        this.source_url = src;
     }
 
 }

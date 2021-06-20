@@ -1,5 +1,13 @@
 Stream Control Panel
 
-<div class="stream">
-    {{ stream$ | async | json }}
+<div class="stream" *ngIf="stream$ | async as stream">
+    {{ stream | json }}
+    <div class="video-preview">
+        <app-video-player
+            *ngIf="stream.streaming"
+            [src]="$any(stream_url$ | async)"></app-video-player>
+    </div>
+    <button
+        *ngIf="stream.streaming && stream.status !== 'live'"
+        (click)="start_stream(stream.identifier)">Go Live</button>
 </div>
