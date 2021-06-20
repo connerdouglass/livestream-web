@@ -21,16 +21,43 @@ export class StudioLoginForm {
         password: '',
     };
 
+    /**
+     * Whether or not the form is being submitted
+     */
+    public submitting = false;
+
     public constructor(
         private auth_service: AuthService,
     ) {}
 
+    /**
+     * Called when the login button is clicked
+     */
     public async login() {
 
-        await this.auth_service.login(
-            this.formdata.email,
-            this.formdata.password,
-        );
+        // If we're already submitting, don't do it again
+        if (this.submitting) return;
+        this.submitting = true;
+
+        try {
+
+            // Login to the account
+            const me = await this.auth_service.login(
+                this.formdata.email,
+                this.formdata.password,
+            );
+
+            // If we're logged in, trigger the event handler
+            if (me) {
+                this.logged_in.next();
+            }
+
+        } catch (err) {
+            console.error(err);
+        }
+
+        // Done submitting
+        this.submitting = false;
 
     }
 
