@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { SocketService } from "../../services/socket.service";
 
 @Component({
     selector: 'app-live-chat',
@@ -14,7 +13,7 @@ export class LiveChat {
     @Input() public stream_id!: string;
 
     public constructor(
-        private socket_service: SocketService,
+        // private socket_service: SocketService,
     ) {}
 
 }
