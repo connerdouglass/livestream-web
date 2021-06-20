@@ -1,0 +1,17 @@
+<div class="studio-login-form">
+    Studio Login
+    <input
+        matInput
+        type="email"
+        [(ngModel)]="formdata.email"
+        placeholder="Email" />
+    <input
+        matInput
+        type="password"
+        [(ngModel)]="formdata.password"
+        placeholder="Password" />
+    <button
+        mat-raised-button
+        (click)="login()">Login</button>
+    
+</div>

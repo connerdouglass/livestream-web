@@ -11,13 +11,19 @@ export class ApiService {
 
     public async fetch<T = any>(url: string, req?: any): Promise<T> {
 
+        // Create the object for the headers
+        const headers: {[key: string]: string} = {
+            'Content-Type': 'application/json',
+        };
+
+        // Get the auth token
+        const auth_token = this.auth_token_service.getAuthToken();
+        if (auth_token) headers['Authorization'] = `Bearer ${this.auth_token_service.getAuthToken()}`;
+
         // Fetch the response
         const res = await fetch(`${environment.api_baseurl}${url}`, {
             method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${this.auth_token_service.getAuthToken()}`,
-                'Content-Type': 'application/json',
-            },
+            headers: headers,
             body: req ? JSON.stringify(req) : '{}',
         })
         .then(r => r.json());
