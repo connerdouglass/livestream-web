@@ -37,9 +37,9 @@ export class VideoPlayer {
     @ViewChild('video') public set v(video_element: ElementRef<HTMLVideoElement> | undefined) {
         this.video_element = video_element?.nativeElement;
         const video_ready_handler = () => {
+            this.video_ready = true;
             this.video_element!.muted = true;
-            this.video_element?.play()
-                .then(() => this.video_ready = true);
+            this.video_element?.play();
         };
         if (this.video_element) {
             if (Hls.isSupported()) {
