@@ -3,6 +3,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CreatorProfileComponent } from './components/creator-profile/creator-profile.component';
 import { LiveChat } from './components/live-chat/live-chat.component';
 import { StudioLoginForm } from './components/studio-login-form/studio-login-form.component';
@@ -30,6 +31,7 @@ import { StudioService } from './services/studio.service';
 		FormsModule,
 		MatInputModule,
 		MatButtonModule,
+		MatProgressSpinnerModule,
 	],
 	exports: [
 		CreatorProfileComponent,

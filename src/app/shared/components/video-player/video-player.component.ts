@@ -11,7 +11,9 @@ export class VideoPlayer {
     /**
      * The HLS player adapter
      */
-    private hls = new Hls();
+    private hls = new Hls({
+        initialLiveManifestSize: 5,
+    });
 
     /**
      * The source URL is always provided before the video element
@@ -24,23 +26,27 @@ export class VideoPlayer {
     private video_element?: HTMLVideoElement;
 
     /**
+     * Whether or not the video is ready
+     */
+    public video_ready = false;
+
+    /**
      * The video player element on the component
      */
     @ViewChild('video') public set v(video_element: ElementRef<HTMLVideoElement> | undefined) {
         this.video_element = video_element?.nativeElement;
+        const video_ready_handler = () => {
+            this.video_element!.muted = true;
+            this.video_element?.play()
+                .then(() => this.video_ready = true);
+        };
         if (this.video_element) {
             if (Hls.isSupported()) {
                 this.hls.attachMedia(this.video_element);
-                this.hls.on(Hls.Events.MEDIA_ATTACHED, () => {
-                    this.video_element!.muted = true;
-                    this.video_element?.play();
-                });
+                this.hls.on(Hls.Events.MEDIA_ATTACHED, video_ready_handler);
             } else {
                 this.video_element.src = this.source_url;
-                this.video_element.addEventListener('canplay', () => {
-                    this.video_element!.muted = true;
-                    this.video_element?.play()
-                });
+                this.video_element.addEventListener('canplay', video_ready_handler);
             }
         }
     }

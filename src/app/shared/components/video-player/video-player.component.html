@@ -3,9 +3,16 @@
         class="video-overlay"
         [style.height.px]="video?.getBoundingClientRect()?.height ?? 0">
         <div
-            *ngIf="video.muted"
+            *ngIf="video_ready && video.muted"
             class="unmute-button"
             (click)="unmute()">Click to Un-Mute</div>
+        <div
+            *ngIf="!video_ready"
+            class="loading-spinner">
+            <mat-spinner
+                [strokeWidth]="5"
+                [diameter]="100"></mat-spinner>
+        </div>
     </div>
     <video
         #video
