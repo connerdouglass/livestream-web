@@ -42,12 +42,16 @@ export class VideoPlayer {
         };
         if (this.video_element) {
             this.video_element.addEventListener('play', () => this.video_ready = true);
-            if (Hls.isSupported()) {
+            if (this.video_element.canPlayType('application/vnd.apple.mpegurl')) {
+                console.log('Native HLS support');
+                this.video_element.src = this.source_url;
+                this.video_element.addEventListener('canplay', video_ready_handler);
+            } else if (Hls.isSupported()) {
+                console.log('HLS.js polyfill supported');
                 this.hls.attachMedia(this.video_element);
                 this.hls.on(Hls.Events.MEDIA_ATTACHED, video_ready_handler);
             } else {
-                this.video_element.src = this.source_url;
-                this.video_element.addEventListener('canplay', video_ready_handler);
+                console.log('No browser support for HLS');
             }
         }
     }
