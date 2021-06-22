@@ -1,6 +1,13 @@
 <div class="video-player">
+    <div
+        class="video-overlay"
+        [style.height.px]="video?.getBoundingClientRect()?.height ?? 0">
+        <div
+            *ngIf="video.muted"
+            class="unmute-button"
+            (click)="unmute()">Click to Un-Mute</div>
+    </div>
     <video
         #video
-        autoplay
-        controls></video>
+        autoplay></video>
 </div>

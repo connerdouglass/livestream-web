@@ -53,4 +53,10 @@ export class VideoPlayer {
         this.source_url = src;
     }
 
+    public unmute(): void {
+        if (this.video_element) {
+            this.video_element.muted = false;
+        }
+    }
+
 }
