@@ -187,6 +187,22 @@
             flex-grow: 1;
             flex-shrink: 1;
             color: #FFF;
+
+            .no-chat
+            {
+                $height: 40px;
+
+                position: absolute;
+                top: 50%;
+                margin-top: -$height / 2;
+                width: 100%;
+                text-align: center;
+                height: $height;
+                line-height: $height;
+                font-weight: 600;
+                font-style: italic;
+                font-size: 120%;
+            }
         }
     }
 }
