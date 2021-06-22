@@ -5,17 +5,27 @@
     background-color: #222;
     height: 100%;
     overflow: hidden;
+    display: flex;
 
-    @include responsive('desktop')
+    @include responsive('mobile')
     {
-        display: flex;
+        flex-direction: column;
     }
 
     > .profile
     {
-        flex-grow: 1;
-        flex-shrink: 1;
-        overflow-y: auto;
+        @include responsive('desktop')
+        {
+            flex-grow: 1;
+            flex-shrink: 1;
+            overflow-y: auto;
+        }
+
+        @include responsive('mobile')
+        {
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
 
         > .stream-section
         {
@@ -163,6 +173,12 @@
             flex-grow: 0;
             flex-shrink: 0;
             width: 400px;
+        }
+
+        @include responsive('mobile')
+        {
+            flex-grow: 1;
+            flex-grow: 1;
         }
 
         > .heading
