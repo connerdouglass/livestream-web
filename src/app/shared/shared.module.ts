@@ -19,6 +19,7 @@ import { CreatorsService } from './services/creators.service';
 import { PlaybackService } from './services/playback.service';
 import { SocketService } from './services/socket.service';
 import { StudioService } from './services/studio.service';
+import { TelegramAuthService } from './services/telegram_auth.service';
 
 @NgModule({
 	declarations: [
@@ -55,6 +56,7 @@ export class SharedModule {
 				PlaybackService,
 				SocketService,
 				StudioService,
+				TelegramAuthService,
                 AdminRequiredGuard,
                 AuthRequiredGuard,
                 UnauthRequiredGuard,

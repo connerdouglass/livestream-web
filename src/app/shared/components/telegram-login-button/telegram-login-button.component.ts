@@ -33,7 +33,7 @@ export interface WidgetConfiguration {
     accessToWriteMessages?: boolean
 }
 
-const TELEGRAM_WIDGET_VERSION = 14;
+const TELEGRAM_WIDGET_VERSION = 15;
 const randomSeed = parseInt(`${Math.random() * 1e7}`);
 
 @Component({
