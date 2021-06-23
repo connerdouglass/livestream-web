@@ -29,7 +29,7 @@ export class TelegramAuthService {
         const str = localStorage.getItem(TelegramAuthService.TELEGRAM_USER_KEY);
         if (!str) return null;
         try {
-            return JSON.stringify(str) as any;
+            return JSON.parse(str);
         } catch (err) {
             return null;
         }
