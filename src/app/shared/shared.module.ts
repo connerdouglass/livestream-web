@@ -13,6 +13,7 @@ import { AdminRequiredGuard } from './guards/admin-required.guard';
 import { AuthRequiredGuard } from './guards/auth-required.guard';
 import { UnauthRequiredGuard } from './guards/unauth-required.guard';
 import { ApiService } from './services/api.service';
+import { AppStateService } from './services/app_state.service';
 import { AuthService } from './services/auth.service';
 import { AuthTokenService } from './services/auth_token.service';
 import { CreatorsService } from './services/creators.service';
@@ -50,6 +51,7 @@ export class SharedModule {
 			ngModule: SharedModule,
 			providers: [
 				ApiService,
+				AppStateService,
 				AuthTokenService,
 				AuthService,
 				CreatorsService,
