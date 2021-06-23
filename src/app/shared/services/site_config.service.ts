@@ -29,7 +29,7 @@ export class SiteConfigService {
         .then(r => r.text());
 
         // Separate it up by lines
-        return res
+        const config = res
             .split('\n')
             .map(line => line.trim())
             .filter(line => line.length > 0)
@@ -41,6 +41,9 @@ export class SiteConfigService {
                     [match[1]]: match[2],
                 };
             }, {} as ISiteConfig) as ISiteConfig;
+
+        console.log('Config: ', config);
+        return config;
 
     }
 

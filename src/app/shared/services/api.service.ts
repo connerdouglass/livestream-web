@@ -14,7 +14,7 @@ export class ApiService {
     public async fetch<T = any>(url: string, req?: any): Promise<T> {
 
         // Get the API base url
-        const api_baseurl = await this.site_config_service.site_config$
+        const config = await this.site_config_service.site_config$
             .pipe(take(1))
             .toPromise();
 
@@ -28,7 +28,7 @@ export class ApiService {
         if (auth_token) headers['Authorization'] = `Bearer ${this.auth_token_service.getAuthToken()}`;
 
         // Fetch the response
-        const res = await fetch(`${api_baseurl}${url}`, {
+        const res = await fetch(`${config.api_baseurl}${url}`, {
             method: 'POST',
             headers: headers,
             body: req ? JSON.stringify(req) : '{}',
