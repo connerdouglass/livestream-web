@@ -12,7 +12,7 @@ export class VideoPlayer {
      * The HLS player adapter
      */
     private hls = new Hls({
-        initialLiveManifestSize: 5,
+        // initialLiveManifestSize: 5,
         debug: true,
     });
 
