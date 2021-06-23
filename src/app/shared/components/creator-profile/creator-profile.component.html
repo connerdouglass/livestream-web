@@ -46,6 +46,9 @@
         </div>
 
         {{ telegram_auth_service.user$ | async | json }}
+        <br />
+        {{ app_state_service.state$ | async | json }}
+        <br />
 
         <app-telegram-login-button
             botName="AliAlexanderLive_Bot"
