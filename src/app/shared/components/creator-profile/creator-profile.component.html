@@ -46,13 +46,6 @@
         </div>
 
         {{ telegram_auth_service.user$ | async | json }}
-        <br />
-        {{ app_state_service.state$ | async | json }}
-        <br />
-
-        <app-telegram-login-button
-            [botName]="(app_state_service.state$ | async)?.telegram_bot_username ?? ''"
-            (login)="logged_in($event)"></app-telegram-login-button>
 
     </div>
     <div class="livechat">

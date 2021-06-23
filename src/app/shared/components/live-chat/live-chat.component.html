@@ -17,7 +17,26 @@
             </div>
         </div>
         <div class="fieldbox">
-            Field
+            <ng-container *ngIf="telegram_auth_service.user$ | async as user; else: no_user">
+                <div class="top">
+                    <input
+                        type="text"
+                        [(ngModel)]="field_value"
+                        placeholder="Send a message..." />
+                </div>
+                <div class="bottom">
+                    <button
+                        mat-button
+                        (click)="clicked_send(user)">Send</button>
+                </div>
+            </ng-container>
+            <ng-template #no_user>
+                <div class="login-box">
+                    <app-telegram-login-button
+                        [botName]="(app_state_service.state$ | async)?.telegram_bot_username ?? ''"
+                        (login)="telegram_auth_service.storeUser($event)"></app-telegram-login-button>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>

@@ -83,9 +83,4 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 		this.destroyed$.complete();
 	}
 
-	public logged_in(user: User) {
-		console.log('Logged in!', user);
-		this.telegram_auth_service.storeUser(user);
-	}
-
 }
