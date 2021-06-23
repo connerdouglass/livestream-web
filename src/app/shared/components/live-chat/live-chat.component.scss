@@ -55,6 +55,9 @@
                         height: $image-size;
                         border-radius: $image-size / 2;
                         background-color: #CCC;
+                        background-size: cover;
+                        background-position: center center;
+                        background-repeat: no-repeat;
                     }
                 }
 
