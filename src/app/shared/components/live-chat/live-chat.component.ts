@@ -81,7 +81,7 @@ export class LiveChat {
     private adjust_scroll(): void {
 
         // If we're locked to the bottom
-        if (this.is_bottom_locked()) this.scroll_to_bottom();
+        /* if (this.is_bottom_locked()) */ this.scroll_to_bottom();
 
     }
 
