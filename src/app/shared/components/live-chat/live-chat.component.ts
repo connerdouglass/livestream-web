@@ -74,14 +74,19 @@ export class LiveChat {
 
     }
 
-    public async clicked_send(user: User): Promise<void> {
+    public clicked_send(user: User): void {
+
+        // If the field value is empty
+        if (this.field_value.trim().length === 0 || this.field_value.trim().length > 280) return;
 
         // Send the message
         this.socket_service.send_message(
             this.stream_id,
-            this.field_value,
+            this.field_value.trim(),
             user,
         );
+
+        // Clear the field value
         this.field_value = '';
 
     }

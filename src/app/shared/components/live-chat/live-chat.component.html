@@ -25,7 +25,9 @@
                     <input
                         type="text"
                         [(ngModel)]="field_value"
-                        placeholder="Send a message..." />
+                        placeholder="Send a message..."
+                        (keydown.enter)="clicked_send(user)"
+                        maxlength="280" />
                 </div>
                 <div class="bottom">
                     <button
