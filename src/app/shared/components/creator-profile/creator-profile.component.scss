@@ -69,6 +69,7 @@
             height: $creator-section-height + 2 * $creator-section-padding;
             padding: $creator-section-padding;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
 
             > .left
             {
@@ -96,6 +97,7 @@
                 flex-grow: 1;
                 flex-shrink: 1;
                 padding-left: 16px;
+                min-width: 0;
 
                 > .text-wrap
                 {
