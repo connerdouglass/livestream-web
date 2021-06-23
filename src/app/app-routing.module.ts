@@ -8,6 +8,11 @@ const routes: Routes = [
 	},
 	{
 		path: '',
+		pathMatch: 'full',
+		loadChildren: () => import('./landing/landing-page.module').then(m => m.LandingPageModule),
+	},
+	{
+		path: '',
 		loadChildren: () => import('./creator-profile/creator-profile-page.module').then(m => m.CreatorProfilePageModule),
 	},
 ];

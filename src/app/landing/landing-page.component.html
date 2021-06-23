@@ -1,0 +1,8 @@
+<ng-container *ngIf="app_state_service.state$ | async as state">
+    <app-creator-profile
+        *ngIf="state.main_creator_username; else: featured"
+        [username]="state.main_creator_username"></app-creator-profile>
+    <ng-template #featured>
+        Featured Content
+    </ng-template>
+</ng-container>
