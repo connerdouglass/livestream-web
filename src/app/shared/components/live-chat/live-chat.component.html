@@ -1,5 +1,23 @@
 <div class="live-chat">
-    <div class="coming-soon">
+    <!-- <div class="coming-soon">
         Chat Coming Soon
+    </div> -->
+    <div class="chat-wrap">
+        <div class="messages">
+            <div
+                *ngFor="let message of messages$ | async"
+                class="message">
+                <div class="left">
+                    <div class="image"></div>
+                </div>
+                <div class="right">
+                    <div class="name">{{ message.username }}</div>
+                    <div class="message">{{ message.message }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="fieldbox">
+            Field
+        </div>
     </div>
 </div>

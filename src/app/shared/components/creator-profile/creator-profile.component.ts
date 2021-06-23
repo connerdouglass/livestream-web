@@ -1,15 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { interval, merge, of, ReplaySubject } from 'rxjs';
-import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { interval, merge, of, ReplaySubject, Subject } from 'rxjs';
+import { distinctUntilChanged, filter, map, shareReplay, switchMap, takeUntil } from 'rxjs/operators';
 import { CreatorsService } from '../../services/creators.service';
 import { PlaybackService } from '../../services/playback.service';
+import { SocketService } from '../../services/socket.service';
+import { User } from '../telegram-login-button/telegram-login-button.component';
 
 @Component({
 	selector: 'app-creator-profile',
 	templateUrl: './creator-profile.component.html',
 	styleUrls: ['./creator-profile.component.scss']
 })
-export class CreatorProfileComponent {
+export class CreatorProfileComponent implements OnInit, OnDestroy {
 
 	/**
 	 * Subject for the username string
@@ -46,9 +48,39 @@ export class CreatorProfileComponent {
 		this.username$.next(username);
 	}
 
+	/**
+	 * Subject emitted when the component is destroyed
+	 */
+	private destroyed$ = new Subject<void>();
+
 	public constructor(
 		private creators_service: CreatorsService,
 		private playback_service: PlaybackService,
+		private socket_service: SocketService,
 	) {}
+
+	public ngOnInit(): void {
+
+		// Join the live stream
+		this.meta$
+			.pipe(map(meta => meta.live_stream?.identifier))
+			.pipe(filter((identifier): identifier is string => !!identifier))
+			.pipe(distinctUntilChanged())
+			.pipe(takeUntil(this.destroyed$))
+			.subscribe(stream_id => {
+				console.log('STREAM_ID', stream_id)
+				this.socket_service.join_stream(stream_id)
+			});
+
+	}
+
+	public ngOnDestroy(): void {
+		this.destroyed$.next();
+		this.destroyed$.complete();
+	}
+
+	public logged_in(user: User) {
+		console.log('Logged in!', user)
+	}
 
 }

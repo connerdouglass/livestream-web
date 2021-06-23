@@ -19,4 +19,72 @@
         font-style: italic;
         font-size: 120%;
     }
+
+    > .chat-wrap
+    {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        > .messages
+        {
+            flex-grow: 1;
+            flex-shrink: 1;
+            overflow-y: auto;
+
+            > .message
+            {
+                display: flex;
+                padding-top: 6px;
+                padding-bottom: 6px;
+
+                > .left
+                {
+                    $image-size: 24px;
+
+                    flex-grow: 0;
+                    flex-shrink: 0;
+                    width: $image-size + 8px * 2;
+                    text-align: center;
+                    padding-top: 3px;
+
+                    > .image
+                    {
+                        display: inline-block;
+                        width: $image-size;
+                        height: $image-size;
+                        border-radius: $image-size / 2;
+                        background-color: #CCC;
+                    }
+                }
+
+                > .right
+                {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+
+                    > .name
+                    {
+                        font-weight: 600;
+                        margin-bottom: 4px;
+                        font-size: 110%;
+                    }
+
+                    > .message
+                    {
+
+                    }
+                }
+            }
+        }
+
+        > .fieldbox
+        {
+            flex-grow: 0;
+            flex-shrink: 0;
+            height: 80px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    }
 }

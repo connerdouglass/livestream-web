@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CreatorProfileComponent } from './components/creator-profile/creator-profile.component';
 import { LiveChat } from './components/live-chat/live-chat.component';
 import { StudioLoginForm } from './components/studio-login-form/studio-login-form.component';
+import { TelegramLoginButtonComponent } from './components/telegram-login-button/telegram-login-button.component';
 import { VideoPlayer } from './components/video-player/video-player.component';
 import { AdminRequiredGuard } from './guards/admin-required.guard';
 import { AuthRequiredGuard } from './guards/auth-required.guard';
@@ -25,6 +26,7 @@ import { StudioService } from './services/studio.service';
 		LiveChat,
 		VideoPlayer,
 		StudioLoginForm,
+		TelegramLoginButtonComponent,
 	],
 	imports: [
 		CommonModule,
@@ -38,6 +40,7 @@ import { StudioService } from './services/studio.service';
 		LiveChat,
 		VideoPlayer,
 		StudioLoginForm,
+		TelegramLoginButtonComponent,
 	],
 })
 export class SharedModule {
