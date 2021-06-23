@@ -18,6 +18,7 @@ import { AuthService } from './services/auth.service';
 import { AuthTokenService } from './services/auth_token.service';
 import { CreatorsService } from './services/creators.service';
 import { PlaybackService } from './services/playback.service';
+import { SiteConfigService } from './services/site_config.service';
 import { SocketService } from './services/socket.service';
 import { StudioService } from './services/studio.service';
 import { TelegramAuthService } from './services/telegram_auth.service';
@@ -56,6 +57,7 @@ export class SharedModule {
 				AuthService,
 				CreatorsService,
 				PlaybackService,
+				SiteConfigService,
 				SocketService,
 				StudioService,
 				TelegramAuthService,

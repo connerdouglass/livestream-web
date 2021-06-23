@@ -4,8 +4,10 @@
 
 export const environment = {
 	production: false,
-	api_baseurl: 'http://localhost:8080',
-	hls_baseurl: 'http://localhost:8081',
+	site_config: {
+		api_baseurl: 'http://localhost:8080',
+		hls_baseurl: 'http://localhost:8081',
+	},
 };
 
 /*

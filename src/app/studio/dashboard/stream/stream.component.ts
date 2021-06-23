@@ -26,7 +26,7 @@ export class DashStreamComponent {
 	public readonly stream_url$ = this.stream$
 		.pipe(map(stream => stream.identifier))
 		.pipe(distinctUntilChanged())
-		.pipe(map(identifier => this.playback_service.getStreamUrl(identifier)))
+		.pipe(switchMap(identifier => this.playback_service.getStreamUrl(identifier)))
 		.pipe(shareReplay(1));
 
 	public constructor(

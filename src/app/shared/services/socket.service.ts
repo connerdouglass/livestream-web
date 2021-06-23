@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { fromEvent, Observable } from "rxjs";
+import { map, shareReplay, switchMap, take } from "rxjs/operators";
 import SocketIOClient from 'socket.io-client';
-import { environment } from "src/environments/environment";
 import { User } from "../components/telegram-login-button/telegram-login-button.component";
+import { SiteConfigService } from "./site_config.service";
 
 @Injectable({
     providedIn: 'root',
@@ -12,30 +13,42 @@ export class SocketService {
     /**
      * The socket connection to the API
      */
-    private socket = SocketIOClient(environment.api_baseurl);
+    private socket$ = this.site_config_service.site_config$
+        .pipe(map(config => SocketIOClient(config.api_baseurl)))
+        .pipe(shareReplay(1));
 
-    public constructor() {
-        this.socket.on('connected', () => {
-            console.log('SOCKET CONNECTED');
-        });
+    public constructor(
+        private site_config_service: SiteConfigService,
+    ) {}
+
+    private async use_socket(fn: (socket: SocketIOClient.Socket) => void): Promise<void> {
+        const socket = await this.socket$
+            .pipe(take(1))
+            .toPromise();
+        fn(socket);
     }
 
     public join_stream(stream_id: string): void {
-        this.socket.emit('stream.join', {
-            stream_id,
+        this.use_socket(socket => {
+            socket.emit('stream.join', {
+                stream_id,
+            });
         });
     }
 
     public send_message(stream_id: string, message: string, user: User): void {
-        this.socket.emit('chat.message', {
-            stream_id,
-            message,
-            user,
+        this.use_socket(socket => {
+            socket.emit('chat.message', {
+                stream_id,
+                message,
+                user,
+            });
         });
     }
 
     public event$<T = any>(event: string): Observable<T> {
-        return fromEvent(this.socket, event);
+        return this.socket$
+            .pipe(switchMap(socket => fromEvent<T>(socket, event)));
     }
 
 }

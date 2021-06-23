@@ -37,7 +37,7 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 		.pipe(map(meta => meta.live_stream?.identifier))
 		.pipe(filter((identifier): identifier is string => !!identifier))
 		.pipe(distinctUntilChanged())
-		.pipe(map(identifier => this.playback_service.getStreamUrl(identifier)))
+		.pipe(switchMap(identifier => this.playback_service.getStreamUrl(identifier)))
 		.pipe(shareReplay(1));
 
 	/**

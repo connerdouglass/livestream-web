@@ -1,15 +1,22 @@
 import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment";
+import { take } from "rxjs/operators";
 import { AuthTokenService } from "./auth_token.service";
+import { SiteConfigService } from "./site_config.service";
 
 @Injectable()
 export class ApiService {
 
     public constructor(
         private auth_token_service: AuthTokenService,
+        private site_config_service: SiteConfigService,
     ) {}
 
     public async fetch<T = any>(url: string, req?: any): Promise<T> {
+
+        // Get the API base url
+        const api_baseurl = await this.site_config_service.site_config$
+            .pipe(take(1))
+            .toPromise();
 
         // Create the object for the headers
         const headers: {[key: string]: string} = {
@@ -21,7 +28,7 @@ export class ApiService {
         if (auth_token) headers['Authorization'] = `Bearer ${this.auth_token_service.getAuthToken()}`;
 
         // Fetch the response
-        const res = await fetch(`${environment.api_baseurl}${url}`, {
+        const res = await fetch(`${api_baseurl}${url}`, {
             method: 'POST',
             headers: headers,
             body: req ? JSON.stringify(req) : '{}',
