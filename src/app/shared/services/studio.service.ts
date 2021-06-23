@@ -12,6 +12,7 @@ interface IStream {
     status: string;
     streaming: boolean;
     scheduled_start_date: number;
+    current_viewers: number;
 }
 
 @Injectable()
