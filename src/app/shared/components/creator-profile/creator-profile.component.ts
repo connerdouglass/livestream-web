@@ -1,12 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { interval, merge, of, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, switchMap, takeUntil } from 'rxjs/operators';
-import { AppStateService } from '../../services/app_state.service';
 import { CreatorsService } from '../../services/creators.service';
 import { PlaybackService } from '../../services/playback.service';
 import { SocketService } from '../../services/socket.service';
-import { TelegramAuthService } from '../../services/telegram_auth.service';
-import { User } from '../telegram-login-button/telegram-login-button.component';
 
 @Component({
 	selector: 'app-creator-profile',
@@ -59,8 +56,6 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 		private creators_service: CreatorsService,
 		private playback_service: PlaybackService,
 		private socket_service: SocketService,
-		public telegram_auth_service: TelegramAuthService,
-		public app_state_service: AppStateService,
 	) {}
 
 	public ngOnInit(): void {

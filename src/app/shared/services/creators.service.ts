@@ -5,6 +5,7 @@ export interface ICreatorMeta {
     id: number;
     username: string;
     name: string;
+    image?: string;
     live_stream: null | {
         id: number;
         identifier: string;
