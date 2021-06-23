@@ -51,7 +51,7 @@
         <br />
 
         <app-telegram-login-button
-            botName="AliAlexanderLive_Bot"
+            [botName]="(app_state_service.state$ | async)?.telegram_bot_username ?? ''"
             (login)="logged_in($event)"></app-telegram-login-button>
 
     </div>
