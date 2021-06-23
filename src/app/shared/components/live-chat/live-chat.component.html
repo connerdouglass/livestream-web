@@ -3,7 +3,7 @@
         Chat Coming Soon
     </div> -->
     <div class="chat-wrap">
-        <div class="messages">
+        <div #messages_scrollbox class="messages">
             <div
                 *ngFor="let message of messages$ | async"
                 class="message">

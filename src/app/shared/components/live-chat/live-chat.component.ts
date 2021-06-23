@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { scan, shareReplay, tap } from "rxjs/operators";
 import { AppStateService } from "../../services/app_state.service";
 import { SocketService } from "../../services/socket.service";
@@ -22,6 +22,11 @@ export class LiveChat {
      * The stream identifier whose chat should be presented here
      */
     @Input() public stream_id!: string;
+
+    /**
+     * The scroll box containing all the messages
+     */
+    @ViewChild('messages_scrollbox', { static: true }) public messages_scrollbox?: ElementRef<HTMLDivElement>;
 
     /**
      * The value of the text field
@@ -54,14 +59,21 @@ export class LiveChat {
      * Checks if the live chat is locked to the bottom
      */
     private is_bottom_locked(): boolean {
-        return true;
+        if (!this.messages_scrollbox || !this.messages_scrollbox.nativeElement) return false;
+        const offset_y = this.messages_scrollbox.nativeElement.scrollTop;
+        const max_offset_y = this.messages_scrollbox.nativeElement.scrollHeight - this.messages_scrollbox.nativeElement.getBoundingClientRect().height;
+        const dist = max_offset_y - offset_y;
+        return (dist < 20);
     }
 
     /**
      * Scrolls the live chat box to the bottom
      */
     private scroll_to_bottom(): void {
-        
+        if (!this.messages_scrollbox || !this.messages_scrollbox.nativeElement) return;
+        // const offset_y = this.messages_scrollbox.nativeElement.scrollTop;
+        const max_offset_y = this.messages_scrollbox.nativeElement.scrollHeight - this.messages_scrollbox.nativeElement.getBoundingClientRect().height;
+        this.messages_scrollbox.nativeElement.scrollTop = max_offset_y;
     }
 
     /**
