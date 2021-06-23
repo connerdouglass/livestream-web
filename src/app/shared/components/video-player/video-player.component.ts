@@ -13,6 +13,7 @@ export class VideoPlayer {
      */
     private hls = new Hls({
         initialLiveManifestSize: 5,
+        debug: true,
     });
 
     /**
