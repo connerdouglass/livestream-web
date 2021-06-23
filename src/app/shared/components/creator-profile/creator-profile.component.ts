@@ -4,6 +4,7 @@ import { distinctUntilChanged, filter, map, shareReplay, switchMap, takeUntil } 
 import { CreatorsService } from '../../services/creators.service';
 import { PlaybackService } from '../../services/playback.service';
 import { SocketService } from '../../services/socket.service';
+import { TelegramAuthService } from '../../services/telegram_auth.service';
 import { User } from '../telegram-login-button/telegram-login-button.component';
 
 @Component({
@@ -57,6 +58,7 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 		private creators_service: CreatorsService,
 		private playback_service: PlaybackService,
 		private socket_service: SocketService,
+		public telegram_auth_service: TelegramAuthService,
 	) {}
 
 	public ngOnInit(): void {
@@ -80,7 +82,8 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 	}
 
 	public logged_in(user: User) {
-		console.log('Logged in!', user)
+		console.log('Logged in!', user);
+		this.telegram_auth_service.storeUser(user);
 	}
 
 }
