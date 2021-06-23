@@ -13,7 +13,7 @@ export class AppStateService {
     /**
      * The app state fetched from the backend
      */
-    public readonly state$ = from(this.api_service.fetch<IAppState>('/app/get-state'))
+    public readonly state$ = from(this.api_service.fetch<IAppState>('/v1/app/get-state'))
         .pipe(shareReplay(1));
 
     public constructor(
