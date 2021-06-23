@@ -5,7 +5,7 @@
 }
 
 # Bind to port 80
-:8087
+:80
 
 # Serve static files
 file_server
