@@ -7,6 +7,7 @@ import { User } from "../telegram-login-button/telegram-login-button.component";
 
 interface IMessage {
     username: string;
+    photo_url?: string;
     message: string;
 }
 

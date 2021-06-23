@@ -46,7 +46,6 @@
                     flex-shrink: 0;
                     width: $image-size + 8px * 2;
                     text-align: center;
-                    padding-top: 3px;
 
                     > .image
                     {
@@ -62,6 +61,7 @@
                 {
                     flex-grow: 1;
                     flex-shrink: 1;
+                    padding-top: 2px;
 
                     > .name
                     {

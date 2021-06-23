@@ -8,7 +8,10 @@
                 *ngFor="let message of messages$ | async"
                 class="message">
                 <div class="left">
-                    <div class="image"></div>
+                    <div
+                        *ngIf="message.photo_url"
+                        class="image"
+                        [style.background-image]="'url(' + message.photo_url + ')'"></div>
                 </div>
                 <div class="right">
                     <div class="name">{{ message.username }}</div>
