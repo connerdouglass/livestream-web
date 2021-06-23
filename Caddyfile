@@ -7,11 +7,11 @@
 # Bind to port 80
 :80
 
-# Serve static files
-file_server
-
 respond /site.cfg "api_baseurl={env.API_BASEURL}
 hls_baseurl={env.HLS_BASEURL}"
+
+# Serve static files
+file_server
 
 # Fallback to index.html for everything but assets
 @html {
