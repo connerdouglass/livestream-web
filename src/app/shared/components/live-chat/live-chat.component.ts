@@ -44,6 +44,7 @@ export class LiveChat {
         }, []))
         .pipe(tap(() => {
             setTimeout(() => {
+                console.log('Scrolling down');
                 this.adjust_scroll();
             }, 0);
         }))
@@ -59,11 +60,10 @@ export class LiveChat {
      * Checks if the live chat is locked to the bottom
      */
     private is_bottom_locked(): boolean {
-        if (!this.messages_scrollbox || !this.messages_scrollbox.nativeElement) return false;
-        const offset_y = this.messages_scrollbox.nativeElement.scrollTop;
-        const max_offset_y = this.messages_scrollbox.nativeElement.scrollHeight - this.messages_scrollbox.nativeElement.getBoundingClientRect().height;
-        const dist = max_offset_y - offset_y;
-        return (dist < 20);
+        if (!this.messages_scrollbox || !this.messages_scrollbox.nativeElement) return true;
+        const box = this.messages_scrollbox.nativeElement;
+        const dist = (box.scrollHeight - box.getBoundingClientRect().height) - box.scrollTop;
+        return dist < 40;
     }
 
     /**
@@ -71,9 +71,8 @@ export class LiveChat {
      */
     private scroll_to_bottom(): void {
         if (!this.messages_scrollbox || !this.messages_scrollbox.nativeElement) return;
-        // const offset_y = this.messages_scrollbox.nativeElement.scrollTop;
-        const max_offset_y = this.messages_scrollbox.nativeElement.scrollHeight - this.messages_scrollbox.nativeElement.getBoundingClientRect().height;
-        this.messages_scrollbox.nativeElement.scrollTop = max_offset_y;
+        const box = this.messages_scrollbox.nativeElement;
+        box.scrollTop = box.scrollHeight;
     }
 
     /**
