@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Input, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import Hls from 'hls.js';
 
 @Component({
