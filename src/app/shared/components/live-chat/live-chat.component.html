@@ -12,6 +12,11 @@
                         *ngIf="message.photo_url"
                         class="image"
                         [style.background-image]="'url(' + message.photo_url + ')'"></div>
+                    <div
+                        *ngIf="!message.photo_url"
+                        class="noimage">
+                        <fa-icon [icon]="icons.user_avatar"></fa-icon>
+                    </div>
                 </div>
                 <div class="right">
                     <span class="name">{{ message.username }}</span>

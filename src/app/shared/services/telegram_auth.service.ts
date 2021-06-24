@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { merge, Observable, of, Subject } from "rxjs";
 import { shareReplay } from "rxjs/operators";
+import { environment } from "src/environments/environment";
 import { User } from "../components/telegram-login-button/telegram-login-button.component";
 
 @Injectable()
@@ -26,6 +27,7 @@ export class TelegramAuthService {
     }
 
     private getUser(): User | null {
+        if ('telegram_user' in environment) return (environment as any).telegram_user;
         const str = localStorage.getItem(TelegramAuthService.TELEGRAM_USER_KEY);
         if (!str) return null;
         try {

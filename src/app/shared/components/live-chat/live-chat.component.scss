@@ -59,6 +59,11 @@
                         background-position: center center;
                         background-repeat: no-repeat;
                     }
+
+                    > .noimage
+                    {
+                        margin-top: 4px;
+                    }
                 }
 
                 > .right
@@ -66,6 +71,7 @@
                     flex-grow: 1;
                     flex-shrink: 1;
                     padding-top: 2px;
+                    vertical-align: middle;
 
                     > .name
                     {

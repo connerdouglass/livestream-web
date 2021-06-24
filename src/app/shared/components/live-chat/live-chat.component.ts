@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { scan, shareReplay, tap } from "rxjs/operators";
 import { AppStateService } from "../../services/app_state.service";
 import { SocketService } from "../../services/socket.service";
@@ -17,6 +18,10 @@ interface IMessage {
     templateUrl: './live-chat.component.html',
 })
 export class LiveChat {
+
+    public readonly icons = {
+        user_avatar: faUser,
+    };
 
     /**
      * The stream identifier whose chat should be presented here
