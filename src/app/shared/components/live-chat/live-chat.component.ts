@@ -47,6 +47,7 @@ export class LiveChat {
                 ...msgs,
                 {
                     ...m,
+                    username: decodeURIComponent(m.username),
                     message: decodeURIComponent(m.message),
                 }
             ];

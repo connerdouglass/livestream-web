@@ -41,7 +41,10 @@ export class SocketService {
             socket.emit('chat.message', {
                 stream_id,
                 message: encodeURIComponent(message),
-                user,
+                user: {
+                    username: user.username ? encodeURIComponent(user.username) : undefined,
+                    photo_url: user.photo_url,
+                },
             });
         });
     }
