@@ -40,7 +40,7 @@ export class SocketService {
         this.use_socket(socket => {
             socket.emit('chat.message', {
                 stream_id,
-                message,
+                message: encodeURIComponent(message),
                 user,
             });
         });

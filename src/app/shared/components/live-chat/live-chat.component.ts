@@ -43,7 +43,13 @@ export class LiveChat {
      */
     public messages$ = this.socket_service.event$('chat.message')
         .pipe(scan((msgs: IMessage[], m: IMessage) => {
-            const new_msgs = [ ...msgs, m ];
+            const new_msgs = [
+                ...msgs,
+                {
+                    ...m,
+                    message: decodeURIComponent(m.message),
+                }
+            ];
             while (new_msgs.length > 100) new_msgs.shift();
             return new_msgs;
         }, []))
