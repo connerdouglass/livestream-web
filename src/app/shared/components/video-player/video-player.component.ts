@@ -1,12 +1,13 @@
-import { Component, ElementRef, Input, NgZone, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import Hls from 'hls.js';
+import { Subject } from "rxjs";
 
 @Component({
     selector: 'app-video-player',
     styleUrls: ['./video-player.component.scss'],
     templateUrl: './video-player.component.html',
 })
-export class VideoPlayer {
+export class VideoPlayer implements OnInit, OnDestroy {
 
     /**
      * The HLS player adapter
@@ -17,6 +18,11 @@ export class VideoPlayer {
      * Whether or not the video is ready
      */
     public video_ready = false;
+
+    /**
+     * Subject emitted when the component is destroyed
+     */
+    private destroyed$ = new Subject<void>();
 
     /**
      * The video player element on the component
@@ -38,10 +44,40 @@ export class VideoPlayer {
         private zone: NgZone,
     ) {}
 
+    /**
+     * Called when the component is initialized
+     */
+    public ngOnInit(): void {
+
+        // // Create an interval
+        // interval(1000)
+        //     .pipe(filter(() => this.video_ready))
+        //     .pipe(map(() => this.video_element.nativeElement.currentTime))
+        //     .pipe(scan((prev: number, curr: number) => {
+        //         if (prev > -1) {
+
+        //         }
+        //         return this.video_element.nativeElement.currentTime;
+        //     }, -1))
+        //     .pipe(takeUntil(this.destroyed$))
+        //     .subscribe();
+
+    }
+
+    /**
+     * Called when the component is destroyed
+     */
+    public ngOnDestroy(): void {
+        this.destroyed$.next();
+        this.destroyed$.complete();
+    }
+
+    /**
+     * Called when the user clicks the "unmute" button
+     */
     public unmute(): void {
         if (this.video_element?.nativeElement) {
             this.video_element.nativeElement.muted = false;
-            console.log('Unmuted!')
         }
     }
 
@@ -81,6 +117,10 @@ export class VideoPlayer {
             console.log('No browser support for HLS');
         }
 
+    }
+
+    public unfreeze(): void {
+        this.video_element.nativeElement.src = this.video_element.nativeElement.src;
     }
 
 }
