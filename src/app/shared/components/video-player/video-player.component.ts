@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { Component, ElementRef, Input, NgZone, ViewChild } from "@angular/core";
 import Hls from 'hls.js';
 
 @Component({
@@ -11,20 +11,7 @@ export class VideoPlayer {
     /**
      * The HLS player adapter
      */
-    private hls = new Hls({
-        initialLiveManifestSize: 5,
-        debug: true,
-    });
-
-    /**
-     * The source URL is always provided before the video element
-     */
-    private source_url!: string;
-
-    /**
-     * The actual video element on the component
-     */
-    private video_element?: HTMLVideoElement;
+    private hls?: Hls;
 
     /**
      * Whether or not the video is ready
@@ -34,40 +21,66 @@ export class VideoPlayer {
     /**
      * The video player element on the component
      */
-    @ViewChild('video') public set v(video_element: ElementRef<HTMLVideoElement> | undefined) {
-        this.video_element = video_element?.nativeElement;
-        const video_ready_handler = () => {
-            this.video_element!.muted = true;
-            // this.video_element!.play();
-        };
-        if (this.video_element) {
-            this.video_element.addEventListener('play', () => this.video_ready = true);
-            if (Hls.isSupported()) {
-                console.log('HLS.js polyfill supported');
-                this.hls.attachMedia(this.video_element);
-                this.hls.on(Hls.Events.MEDIA_ATTACHED, video_ready_handler);
-            } else if (this.video_element.canPlayType('application/vnd.apple.mpegurl')) {
-                console.log('Native HLS support');
-                this.video_element.src = this.source_url;
-                this.video_element.addEventListener('canplay', video_ready_handler);
-            } else {
-                console.log('No browser support for HLS');
-            }
-        }
-    }
+    @ViewChild('video') public video_element!: ElementRef<HTMLVideoElement>;
 
     /**
      * Sets the source URL for the video to play
      */
     @Input('src') public set src(src: string) {
-        this.hls.loadSource(src);
-        this.source_url = src;
+        setTimeout(() => {
+            this.zone.run(() => {
+                this.setup_video(src);
+            });
+        }, 0);
     }
 
+    public constructor(
+        private zone: NgZone,
+    ) {}
+
     public unmute(): void {
-        if (this.video_element) {
-            this.video_element.muted = false;
+        if (this.video_element?.nativeElement) {
+            this.video_element.nativeElement.muted = false;
+            console.log('Unmuted!')
         }
+    }
+
+    private setup_video(src: string): void {
+
+        const video = this.video_element.nativeElement;
+
+        const video_ready_handler = () => {
+            video.muted = true;
+            // video.play();
+        };
+
+        video.addEventListener('play', () => this.video_ready = true);
+
+        if (video.canPlayType('application/vnd.apple.mpegurl')) {
+
+            console.log('Native HLS support');
+            video.src = src;
+            const ready_handler = () => {
+                video.removeEventListener('canplay', ready_handler);
+                video_ready_handler();
+            };
+            video.addEventListener('canplay', ready_handler);
+
+        } else if (Hls.isSupported()) {
+
+            console.log('HLS.js polyfill supported');
+            this.hls = new Hls({
+                initialLiveManifestSize: 5,
+                debug: true,
+            });
+            this.hls.attachMedia(video);
+            this.hls.loadSource(src);
+            this.hls.on(Hls.Events.MEDIA_ATTACHED, video_ready_handler);
+
+        } else {
+            console.log('No browser support for HLS');
+        }
+
     }
 
 }
