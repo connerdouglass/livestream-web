@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from "@angular/core";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { AuthService } from "../../services/auth.service";
 
 @Component({
@@ -7,6 +8,13 @@ import { AuthService } from "../../services/auth.service";
     templateUrl: './studio-login-form.component.html',
 })
 export class StudioLoginForm {
+
+    /**
+     * Icons displayed on the compoent
+     */
+    public readonly icons = {
+        submitting: faSpinner,
+    };
 
     /**
      * Event emitted when we've successfully logged in

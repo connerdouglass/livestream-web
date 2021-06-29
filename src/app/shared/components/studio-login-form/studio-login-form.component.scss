@@ -1,0 +1,8 @@
+:host > .studio-login-form
+{
+    ::ng-deep .mat-form-field
+    {
+        display: block;
+        width: 100%;
+    }
+}

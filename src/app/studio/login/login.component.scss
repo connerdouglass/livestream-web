@@ -1,0 +1,28 @@
+:host > .login-page
+{
+    > .inner
+    {
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 24px;
+        padding-right: 24px;
+
+        > .box
+        {
+            margin-top: 100px;
+            // background-color: rgba(0, 0, 0, 0.3);
+            background-color: #FFF;
+            padding: 20px;
+            color: #000;
+            border-radius: 6px;
+
+            > .heading
+            {
+                font-weight: 500;
+                font-size: 200%;
+                margin-bottom: 20px;
+            }
+        }
+    }
+}

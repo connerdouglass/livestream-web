@@ -1,17 +1,26 @@
 <div class="studio-login-form">
-    Studio Login
-    <input
-        matInput
-        type="email"
-        [(ngModel)]="formdata.email"
-        placeholder="Email" />
-    <input
-        matInput
-        type="password"
-        [(ngModel)]="formdata.password"
-        placeholder="Password" />
+    <mat-form-field>
+        <input
+            matInput
+            type="email"
+            [(ngModel)]="formdata.email"
+            placeholder="Email" />
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            matInput
+            type="password"
+            [(ngModel)]="formdata.password"
+            (keydown.enter)="login()"
+            placeholder="Password" />
+    </mat-form-field>
     <button
         mat-raised-button
-        (click)="login()">Login</button>
-    
+        (click)="login()">
+        <fa-icon
+            *ngIf="submitting"
+            [icon]="icons.submitting"
+            [spin]="true"></fa-icon>
+        Login
+    </button>
 </div>
