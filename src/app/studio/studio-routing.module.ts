@@ -13,7 +13,7 @@ const routes: Routes = [
 		component: StudioLoginPageComponent,
 		canActivate: [UnauthRequiredGuard],
 		data: {
-			auth_redirect: '/studio',
+			auth_redirect: '/studio/streams',
 		},
 	},
 	{
@@ -28,6 +28,10 @@ const routes: Routes = [
 			{
 				path: '',
 				pathMatch: 'full',
+				redirectTo: '/studio/streams',
+			},
+			{
+				path: 'streams',
 				component: DashStreamsComponent,
 			},
 			{

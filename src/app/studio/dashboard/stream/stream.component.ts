@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { interval, merge, of } from 'rxjs';
 import { distinct, distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
 import { PlaybackService } from 'src/app/shared/services/playback.service';
+import { SiteConfigService } from 'src/app/shared/services/site_config.service';
 import { StudioService } from 'src/app/shared/services/studio.service';
 
 @Component({
@@ -29,10 +30,14 @@ export class DashStreamComponent {
 		.pipe(switchMap(identifier => this.playback_service.getStreamUrl(identifier)))
 		.pipe(shareReplay(1));
 
+	public rtmp_url$ = this.site_config_service.site_config$
+		.pipe(map(config => config.rtmp_baseurl));
+
 	public constructor(
 		private route: ActivatedRoute,
 		private studio_service: StudioService,
 		private playback_service: PlaybackService,
+		public site_config_service: SiteConfigService,
 	) {}
 
 	public async start_stream(

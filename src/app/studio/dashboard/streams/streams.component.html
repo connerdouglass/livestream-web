@@ -1,10 +1,55 @@
-Streams list
+<div class="inner">
+    <h1>Streams</h1>
 
-<div class="streams">
-    <div
-        *ngFor="let stream of studio_service.all_streams$ | async"
-        class="stream"
-        routerLink="/studio/stream/{{ stream.identifier }}">
-        <h3>{{ stream.title }}</h3>
-    </div>
+    <ng-container
+        *ngIf="live_streams$ | async as streams">
+        <div
+            *ngIf="streams.length > 0"
+            class="live-streams">
+            <div class="label">Live Now</div>
+            <div
+                *ngFor="let stream of streams"
+                class="stream"
+                matRipple
+                routerLink="/studio/stream/{{ stream.identifier }}">
+                <div class="title">{{ stream.title }}</div>
+                <div class="status">{{ stream.status }}</div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container
+        *ngIf="upcoming_streams$ | async as streams">
+        <div
+            *ngIf="streams.length > 0"
+            class="upcoming-streams">
+            <div class="label">Upcoming</div>
+            <div
+                *ngFor="let stream of streams"
+                class="stream"
+                matRipple
+                routerLink="/studio/stream/{{ stream.identifier }}">
+                <div class="title">{{ stream.title }}</div>
+                <div class="status">{{ stream.status }}</div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container
+        *ngIf="ended_streams$ | async as streams">
+        <div
+            *ngIf="streams.length > 0"
+            class="ended-streams">
+            <div class="label">Ended Streams</div>
+            <div
+                *ngFor="let stream of streams"
+                class="stream"
+                matRipple
+                routerLink="/studio/stream/{{ stream.identifier }}">
+                <div class="title">{{ stream.title }}</div>
+                <div class="status">{{ stream.status }}</div>
+            </div>
+        </div>
+    </ng-container>
+
 </div>

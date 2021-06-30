@@ -8,7 +8,8 @@
 :80
 
 respond /site.cfg "api_baseurl={env.API_BASEURL}
-hls_baseurl={env.HLS_BASEURL}"
+hls_baseurl={env.HLS_BASEURL}
+rtmp_baseurl={env.RTMP_BASEURL}"
 
 # Serve static files
 file_server

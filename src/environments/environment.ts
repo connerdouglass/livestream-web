@@ -7,6 +7,7 @@ export const environment = {
 	site_config: {
 		api_baseurl: 'http://localhost:8080',
 		hls_baseurl: 'http://localhost:8081',
+		rtmp_baseurl: 'rtmp://localhost',
 	},
 	telegram_user: {
 		id: 1,

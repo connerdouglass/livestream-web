@@ -1,0 +1,37 @@
+:host > .studio-dashboard
+{
+    height: 100vh;
+
+    &,
+    ::ng-deep .mat-drawer
+    {
+        background-color: transparent !important;
+        color: #FFF;
+    }
+
+    ::ng-deep .mat-drawer
+    {
+        width: 320px;
+    }
+
+    .navlinks
+    {
+        padding: 20px;
+
+        a
+        {
+            font-size: 120%;
+            color: #FFF;
+            text-decoration: none;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 16px;
+            background-color: rgba(255, 255, 255, 0.1);
+            height: 44px;
+            line-height: 44px;
+            padding-left: 12px;
+            padding-right: 12px;
+            border-radius: 6px;
+        }
+    }
+}

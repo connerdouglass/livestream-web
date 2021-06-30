@@ -1,3 +1,12 @@
-<h1>Studio Dashboard</h1>
-
-<router-outlet></router-outlet>
+<mat-drawer-container class="studio-dashboard">
+    <mat-drawer mode="side" opened>
+        <div class="navlinks">
+            <a
+                routerLink="/studio/streams"
+                matRipple>Streams</a>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

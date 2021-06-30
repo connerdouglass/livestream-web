@@ -1,0 +1,43 @@
+:host > .inner
+{
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+
+    > .live-streams,
+    > .upcoming-streams,
+    > .ended-streams
+    {
+        margin-bottom: 32px;
+
+        > .label
+        {
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        > .stream
+        {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            margin-bottom: 10px;
+            padding: 20px;
+            cursor: pointer;
+            user-select: none;
+
+            > .title
+            {
+                font-weight: 600;
+                font-size: 110%;
+            }
+
+            > .status
+            {
+
+            }
+        }
+    }
+}

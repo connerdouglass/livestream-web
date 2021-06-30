@@ -6,6 +6,7 @@ import { environment } from "../../../environments/environment";
 interface ISiteConfig {
     api_baseurl: string;
     hls_baseurl: string;
+    rtmp_baseurl: string;
 }
 
 @Injectable()
