@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +27,7 @@ import { StudioRoutingModule } from './studio-routing.module';
 		CommonModule,
 		StudioRoutingModule,
 		SharedModule,
+		FormsModule,
 		MatSidenavModule,
 		MatFormFieldModule,
 		MatInputModule,

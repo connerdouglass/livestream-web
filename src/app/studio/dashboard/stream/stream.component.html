@@ -1,39 +1,38 @@
 <div class="inner">
     <h1>Stream Control Panel</h1>
     <div class="stream" *ngIf="stream$ | async as stream">
-        {{ stream | json }}
 
-        <div class="title">
+        <div class="infobox">
             <mat-form-field appearance="fill">
+                <mat-label>Stream Title</mat-label>
                 <input
                     matInput
                     placeholder="Stream Title"
                     [value]="stream.title" />
             </mat-form-field>
+            <div class="control-buttons">
+                <span
+                    *ngIf="stream.status !== 'live'"
+                    matTooltip="Start streaming to the RTMP server before going live"
+                    [matTooltipDisabled]="stream.streaming">
+                    <button
+                        mat-raised-button
+                        class="button-go-live"
+                        (click)="start_stream(stream.identifier)"
+                        [disabled]="!stream.streaming">Go Live</button>
+                </span>
+                <button
+                    *ngIf="stream.status === 'live'"
+                    mat-raised-button
+                    class="button-end-stream"
+                    (click)="stop_stream(stream.identifier)">End Stream</button>
+            </div>
         </div>
 
         <div class="video-preview">
             <app-video-player
                 *ngIf="stream.streaming"
                 [src]="$any(stream_url$ | async)"></app-video-player>
-        </div>
-
-        <div class="control-buttons">
-            <span
-                *ngIf="stream.status !== 'live'"
-                matTooltip="Start streaming to the RTMP server before going live"
-                [matTooltipDisabled]="stream.streaming">
-                <button
-                    mat-raised-button
-                    class="button-go-live"
-                    (click)="start_stream(stream.identifier)"
-                    [disabled]="!stream.streaming">Go Live</button>
-            </span>
-            <button
-                *ngIf="stream.status === 'live'"
-                mat-raised-button
-                class="button-end-stream"
-                (click)="stop_stream(stream.identifier)">End Stream</button>
         </div>
 
         <table class="stream-info">

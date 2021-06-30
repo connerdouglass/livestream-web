@@ -8,29 +8,36 @@
 
     .stream
     {
+        > .infobox
+        {
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-bottom: 16px;
+            padding: 12px;
+            
+            > .control-buttons
+            {
+                // margin-top: 20px;
+
+                .button-go-live
+                {
+                    &:not([disabled])
+                    {
+                        background-color: #F33;
+                        color: #FFF;
+                    }
+                }
+
+                > .button-end-stream
+                {
+                    background-color: #666;
+                    color: #FFF;
+                }
+            }   
+        }
+
         > .video-preview
         {
             width: 400px;
-        }
-
-        > .control-buttons
-        {
-            margin-top: 20px;
-
-            .button-go-live
-            {
-                &:not([disabled])
-                {
-                    background-color: #F33;
-                    color: #FFF;
-                }
-            }
-
-            > .button-end-stream
-            {
-                background-color: #666;
-                color: #FFF;
-            }
         }
 
         > table.stream-info
