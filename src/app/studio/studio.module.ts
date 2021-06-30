@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SharedModule } from '../shared/shared.module';
+import { DashChatComponent } from './dashboard/chat/chat.component';
 import { StudioDashboardComponent } from './dashboard/dashboard.component';
 import { DashStreamComponent } from './dashboard/stream/stream.component';
 import { DashStreamsComponent } from './dashboard/streams/streams.component';
@@ -19,6 +20,7 @@ import { StudioRoutingModule } from './studio-routing.module';
 		StudioDashboardComponent,
 		DashStreamsComponent,
 		DashStreamComponent,
+		DashChatComponent,
 	],
 	imports: [
 		CommonModule,

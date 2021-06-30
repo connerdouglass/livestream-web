@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthRequiredGuard } from '../shared/guards/auth-required.guard';
 import { UnauthRequiredGuard } from '../shared/guards/unauth-required.guard';
+import { DashChatComponent } from './dashboard/chat/chat.component';
 import { StudioDashboardComponent } from './dashboard/dashboard.component';
 import { DashStreamComponent } from './dashboard/stream/stream.component';
 import { DashStreamsComponent } from './dashboard/streams/streams.component';
@@ -37,6 +38,10 @@ const routes: Routes = [
 			{
 				path: 'stream/:stream_id',
 				component: DashStreamComponent,
+			},
+			{
+				path: 'chat',
+				component: DashChatComponent,
 			},
 		],
 	},
