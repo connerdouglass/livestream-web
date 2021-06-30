@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ApiService } from 'src/app/shared/services/api.service';
 import { StudioService } from 'src/app/shared/services/studio.service';
 
 @Component({
