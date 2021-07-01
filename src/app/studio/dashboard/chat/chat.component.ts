@@ -9,6 +9,7 @@ import { StudioService } from 'src/app/shared/services/studio.service';
 export class DashChatComponent {
 
 	public mute_username = '';
+	public unmute_username = '';
 
 	public constructor(
 		public studio_service: StudioService,
@@ -20,6 +21,17 @@ export class DashChatComponent {
 		this.mute_username = '';
 
 		await this.studio_service.mute_chat_username(
+			username,
+		);
+
+	}
+
+	public async submit_unmute() {
+
+		const username = this.unmute_username;
+		this.unmute_username = '';
+
+		await this.studio_service.unmute_chat_username(
 			username,
 		);
 

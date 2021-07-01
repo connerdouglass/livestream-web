@@ -73,4 +73,11 @@ export class StudioService {
         });
     }
 
+    public async unmute_chat_username(/* creator_id: number,*/ username: string): Promise<void> {
+        await this.api_service.fetch('/v1/studio/chat/unmute', {
+            // creator_id,
+            username,
+        });
+    }
+
 }
