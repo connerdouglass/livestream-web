@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@ang
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
+import { AppStateService } from '../../services/app_state.service';
 import { TelegramAuthService } from '../../services/telegram_auth.service';
 import { User } from '../telegram-login-button/telegram-login-button.component';
 
@@ -43,7 +44,8 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 	@ViewChild('chatroom') public chatroom_frame?: ElementRef<HTMLIFrameElement>;
 
 	public constructor(
-		private telegram_auth_service: TelegramAuthService,
+		public telegram_auth_service: TelegramAuthService,
+		public app_state_service: AppStateService,
 		private sanitizer: DomSanitizer,
 	) {}
 
