@@ -8,7 +8,7 @@
     <ng-container *ngIf="app_state_service.state$ | async as app_state">
         <div
             class="login-box"
-            *ngIf="telegram_auth_service.user$ | async as user">
+            *ngIf="!(telegram_auth_service.user$ | async)">
             <app-telegram-login-button
                 [botName]="app_state.telegram_bot_username"
                 (login)="logged_in($event)"></app-telegram-login-button>
