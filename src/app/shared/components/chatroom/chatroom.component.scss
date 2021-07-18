@@ -1,238 +1,26 @@
 @import '../../../../styles/responsive.scss';
 
-.creator-profile
+.chatroom
 {
-    background-color: #222;
+    position: absolute;
     height: 100%;
-    overflow: hidden;
+    width: 100%;
+    top: 0;
+    left: 0;
     display: flex;
+    flex-direction: column;
 
-    @include responsive('mobile')
+    > .top
     {
-        flex-direction: column;
+        flex-grow: 1;
+        flex-shrink: 1;
     }
 
-    > .profile
+    > .login-box
     {
-        @include responsive('desktop')
-        {
-            flex-grow: 1;
-            flex-shrink: 1;
-            overflow-y: auto;
-        }
-
-        @include responsive('mobile')
-        {
-            flex-grow: 0;
-            flex-shrink: 0;
-        }
-
-        > .stream-section
-        {
-            position: relative;
-            padding-top: 56.25%;
-            background-color: #000;
-            overflow: hidden;
-
-            > .video-wrap
-            {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-            }
-
-            > .offline-notice
-            {
-                $notice-height: 100px;
-                position: absolute;
-                height: $notice-height;
-                line-height: $notice-height;
-                top: 50%;
-                margin-top: -$notice-height / 2;
-                width: 100%;
-                color: #FFF;
-                font-weight: 500;
-                text-transform: uppercase;
-                font-size: 200%;
-                text-align: center;
-            }
-        }
-
-        > .creator-section
-        {
-            $creator-section-padding: 20px;
-            $creator-section-height: 64px;
-
-            display: flex;
-            height: $creator-section-height + 2 * $creator-section-padding;
-            padding: $creator-section-padding;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100%;
-
-            > .left
-            {
-                flex-grow: 0;
-                flex-shrink: 0;
-                width: $creator-section-height;
-
-                > .image
-                {
-                    display: inline-block;
-                    width: $creator-section-height;
-                    height: $creator-section-height;
-                    border-radius: $creator-section-height / 2;
-                    background-color: #EEE;
-                    background-size: cover;
-                    background-repeat: no-repeat;
-                    background-position: center center;
-                }
-            }
-
-            > .center
-            {
-                position: relative;
-                text-align: left;
-                flex-grow: 1;
-                flex-shrink: 1;
-                padding-left: 16px;
-                min-width: 0;
-
-                > .text-wrap
-                {
-                    display: table;
-                    height: 100%;
-
-                    > .text
-                    {
-                        display: table-cell;
-                        vertical-align: middle;
-
-                        > .name
-                        {
-                            font-size: 130%;
-                            font-weight: 600;
-                            color: #FFF;
-                        }
-
-                        > .stream-info
-                        {
-                            $info-height: 24px;
-
-                            height: $info-height;
-                            line-height: $info-height;
-                            font-weight: 600;
-                            color: #FFF;
-                            margin-top: 8px;
-
-                            > .badge
-                            {
-                                display: inline-block;
-                                height: $info-height;
-                                vertical-align: middle;
-                                border-radius: 4px;
-                                padding: 0 10px;
-                                font-size: 90%;
-                                font-weight: 600;
-                                margin-right: 10px;
-
-                                &.live
-                                {
-                                    background-color: #F33;
-                                    color: #FFF;
-                                }
-
-                                &.upcoming
-                                {
-                                    background-color: #444;
-                                    color: #FFF;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            > .right
-            {
-                flex-grow: 1;
-                flex-shrink: 1;
-                text-align: right;
-            }
-        }
-    }
-
-    > .livechat
-    {
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        flex-direction: column;
-
-        @include responsive('desktop')
-        {
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-            flex-grow: 0;
-            flex-shrink: 0;
-            width: 400px;
-        }
-
-        @include responsive('mobile')
-        {
-            flex-grow: 1;
-            flex-shrink: 1;
-            min-height: 0;
-        }
-
-        > .heading
-        {
-            $heading-height: 42px;
-
-            flex-grow: 0;
-            flex-shrink: 0;
-            height: $heading-height;
-            line-height: $heading-height;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #FFF;
-            text-align: center;
-        }
-
-        > .content
-        {
-            position: relative;
-            flex-grow: 1;
-            flex-shrink: 1;
-            color: #FFF;
-            min-height: 0;
-
-            .no-chat
-            {
-                $height: 40px;
-
-                position: absolute;
-                top: 50%;
-                margin-top: -$height / 2;
-                width: 100%;
-                text-align: center;
-                height: $height;
-                line-height: $height;
-                font-weight: 600;
-                font-style: italic;
-                font-size: 120%;
-            }
-
-            > iframe
-            {
-                border: none;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-        }
+        height: 50px;
+        line-height: 50px;
+        flex-grow: 0;
+        flex-shrink: 0;
     }
 }
