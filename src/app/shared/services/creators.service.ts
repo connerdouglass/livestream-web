@@ -12,6 +12,7 @@ export interface ICreatorMeta {
         title: string;
         scheduled_start_date: number;
         current_viewers: number;
+        chatroom_url?: string;
     };
     next_stream: null | {
         id: number;

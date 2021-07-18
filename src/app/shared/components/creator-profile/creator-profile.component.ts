@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { interval, merge, of, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, filter, map, shareReplay, switchMap, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { CreatorsService } from '../../services/creators.service';
 import { PlaybackService } from '../../services/playback.service';
-import { SocketService } from '../../services/socket.service';
 
 @Component({
 	selector: 'app-creator-profile',
@@ -41,6 +41,15 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 		.pipe(shareReplay(1));
 
 	/**
+	 * Observable for the chatroom iframe src URL
+	 */
+	public readonly chatroom_url$ = this.meta$
+		.pipe(map(meta => meta.live_stream?.chatroom_url))
+		.pipe(distinctUntilChanged())
+		.pipe(map(url => url ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : undefined))
+		.pipe(shareReplay(1));
+
+	/**
 	 * The username of the creator profile to load
 	 */
 	@Input('username') public set u(username: string) {
@@ -55,23 +64,10 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 	public constructor(
 		private creators_service: CreatorsService,
 		private playback_service: PlaybackService,
-		private socket_service: SocketService,
+		private sanitizer: DomSanitizer,
 	) {}
 
-	public ngOnInit(): void {
-
-		// Join the live stream
-		this.meta$
-			.pipe(map(meta => meta.live_stream?.identifier))
-			.pipe(filter((identifier): identifier is string => !!identifier))
-			.pipe(distinctUntilChanged())
-			.pipe(takeUntil(this.destroyed$))
-			.subscribe(stream_id => {
-				console.log('STREAM_ID', stream_id)
-				this.socket_service.join_stream(stream_id)
-			});
-
-	}
+	public ngOnInit(): void {}
 
 	public ngOnDestroy(): void {
 		this.destroyed$.next();

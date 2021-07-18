@@ -6,7 +6,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CreatorProfileComponent } from './components/creator-profile/creator-profile.component';
-import { LiveChat } from './components/live-chat/live-chat.component';
 import { StudioLoginForm } from './components/studio-login-form/studio-login-form.component';
 import { TelegramLoginButtonComponent } from './components/telegram-login-button/telegram-login-button.component';
 import { VideoPlayer } from './components/video-player/video-player.component';
@@ -20,14 +19,12 @@ import { AuthTokenService } from './services/auth_token.service';
 import { CreatorsService } from './services/creators.service';
 import { PlaybackService } from './services/playback.service';
 import { SiteConfigService } from './services/site_config.service';
-import { SocketService } from './services/socket.service';
 import { StudioService } from './services/studio.service';
 import { TelegramAuthService } from './services/telegram_auth.service';
 
 @NgModule({
 	declarations: [
 		CreatorProfileComponent,
-		LiveChat,
 		VideoPlayer,
 		StudioLoginForm,
 		TelegramLoginButtonComponent,
@@ -42,7 +39,6 @@ import { TelegramAuthService } from './services/telegram_auth.service';
 	],
 	exports: [
 		CreatorProfileComponent,
-		LiveChat,
 		VideoPlayer,
 		StudioLoginForm,
 		TelegramLoginButtonComponent,
@@ -60,7 +56,6 @@ export class SharedModule {
 				CreatorsService,
 				PlaybackService,
 				SiteConfigService,
-				SocketService,
 				StudioService,
 				TelegramAuthService,
                 AdminRequiredGuard,

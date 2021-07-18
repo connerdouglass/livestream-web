@@ -51,11 +51,11 @@
     <div class="livechat">
         <div class="heading">Live Chat</div>
         <div class="content">
-            <app-live-chat
-                *ngIf="meta.live_stream"
-                [stream_id]="meta.live_stream.identifier"></app-live-chat>
+            <iframe
+                *ngIf="chatroom_url$ | async as chatroom_url"
+                [src]="chatroom_url"></iframe>
             <div
-                *ngIf="!meta.live_stream"
+                *ngIf="!(chatroom_url$ | async)"
                 class="no-chat">
                 Live chat is closed
             </div>
