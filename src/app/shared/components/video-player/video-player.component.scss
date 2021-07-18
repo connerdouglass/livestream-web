@@ -23,6 +23,7 @@
             text-align: center;
             height: $button-height;
             line-height: $button-height;
+            user-select: none;
             background-color: rgba(0, 0, 0, 0.5);
             color: #FFF;
             border-radius: 2px;

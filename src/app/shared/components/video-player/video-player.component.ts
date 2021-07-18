@@ -78,6 +78,7 @@ export class VideoPlayer implements OnInit, OnDestroy {
     public unmute(): void {
         if (this.video_element?.nativeElement) {
             this.video_element.nativeElement.muted = false;
+            this.video_element.nativeElement.play();
         }
     }
 
@@ -87,7 +88,7 @@ export class VideoPlayer implements OnInit, OnDestroy {
 
         const video_ready_handler = () => {
             video.muted = true;
-            // video.play();
+            video.play();
         };
 
         video.addEventListener('play', () => this.video_ready = true);
