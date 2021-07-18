@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, takeUntil } from 'rxjs/operators';
 import { AppStateService } from '../../services/app_state.service';
 import { TelegramAuthService } from '../../services/telegram_auth.service';
 import { User } from '../telegram-login-button/telegram-login-button.component';
@@ -49,7 +49,11 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 		private sanitizer: DomSanitizer,
 	) {}
 
-	public ngOnInit(): void {}
+	public ngOnInit(): void {
+		this.telegram_auth_service.user$
+			.pipe(takeUntil(this.destroyed$))
+			.subscribe(user => this.broadcast_user(user))
+	}
 
 	public ngOnDestroy(): void {
 		this.destroyed$.next();
@@ -58,6 +62,13 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 
 	public logged_in(user: User): void {
 		this.telegram_auth_service.storeUser(user);
+		this.broadcast_user(user);
+	}
+
+	private async broadcast_user(user: User | null): Promise<void> {
+		while (!this.chatroom_frame?.nativeElement.contentWindow) {
+			await new Promise<void>(resolve => setTimeout(resolve, 100));
+		}
 		this.chatroom_frame?.nativeElement.contentWindow?.postMessage({
 			type: 'auth',
 			user: user,
