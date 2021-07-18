@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { interval, merge, of, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
@@ -46,7 +46,6 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 	public readonly chatroom_url$ = this.meta$
 		.pipe(map(meta => meta.live_stream?.chatroom_url))
 		.pipe(distinctUntilChanged())
-		.pipe(map(url => url ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : undefined))
 		.pipe(shareReplay(1));
 
 	/**

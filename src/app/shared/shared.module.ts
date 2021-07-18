@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ChatRoomComponent } from './components/chatroom/chatroom.component';
 import { CreatorProfileComponent } from './components/creator-profile/creator-profile.component';
 import { StudioLoginForm } from './components/studio-login-form/studio-login-form.component';
 import { TelegramLoginButtonComponent } from './components/telegram-login-button/telegram-login-button.component';
@@ -28,6 +29,7 @@ import { TelegramAuthService } from './services/telegram_auth.service';
 		VideoPlayer,
 		StudioLoginForm,
 		TelegramLoginButtonComponent,
+		ChatRoomComponent,
 	],
 	imports: [
 		CommonModule,
@@ -42,6 +44,7 @@ import { TelegramAuthService } from './services/telegram_auth.service';
 		VideoPlayer,
 		StudioLoginForm,
 		TelegramLoginButtonComponent,
+		ChatRoomComponent,
 	],
 })
 export class SharedModule {

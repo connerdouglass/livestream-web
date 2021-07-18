@@ -51,9 +51,9 @@
     <div class="livechat">
         <div class="heading">Live Chat</div>
         <div class="content">
-            <iframe
+            <app-chatroom
                 *ngIf="chatroom_url$ | async as chatroom_url"
-                [src]="chatroom_url"></iframe>
+                [src]="chatroom_url"></app-chatroom>
             <div
                 *ngIf="!(chatroom_url$ | async)"
                 class="no-chat">
