@@ -66,13 +66,19 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 	}
 
 	private async broadcast_user(user: User | null): Promise<void> {
+		// TODO: This function is full of race conditions as we don't *really* know when the iframe has loaded
+		// and the message handler has been registered on that end
 		while (!this.chatroom_frame?.nativeElement.contentWindow) {
 			await new Promise<void>(resolve => setTimeout(resolve, 100));
 		}
-		this.chatroom_frame?.nativeElement.contentWindow?.postMessage({
-			type: 'auth',
-			user: user,
-		}, '*')
+		this.chatroom_frame.nativeElement.contentDocument?.addEventListener('load', () => {
+			setTimeout(() => {
+				this.chatroom_frame?.nativeElement.contentWindow?.postMessage({
+					type: 'auth',
+					user: user,
+				}, '*');
+			}, 500);
+		});
 	}
 
 }
