@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChatRoomComponent } from './components/chatroom/chatroom.component';
 import { CreatorProfileComponent } from './components/creator-profile/creator-profile.component';
@@ -39,6 +40,7 @@ import { TelegramAuthService } from './services/telegram_auth.service';
 		MatInputModule,
 		MatButtonModule,
 		MatProgressSpinnerModule,
+		MatTooltipModule,
 	],
 	exports: [
 		CreatorProfileComponent,

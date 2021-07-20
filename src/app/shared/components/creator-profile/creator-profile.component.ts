@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { interval, merge, of, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { CreatorsService, ICreatorMeta } from '../../services/creators.service';
@@ -15,6 +15,7 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 
 	public readonly icons = {
 		notify_bell: faBell,
+		notify_checkmark: faCheck,
 	};
 
 	/**

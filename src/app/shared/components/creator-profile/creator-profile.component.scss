@@ -159,6 +159,14 @@
                 flex-grow: 1;
                 flex-shrink: 1;
                 text-align: right;
+
+                .notify-button
+                {
+                    span
+                    {
+                        margin-left: 6px;
+                    }
+                }
             }
         }
     }
