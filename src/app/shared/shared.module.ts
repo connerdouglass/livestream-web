@@ -18,6 +18,7 @@ import { AppStateService } from './services/app_state.service';
 import { AuthService } from './services/auth.service';
 import { AuthTokenService } from './services/auth_token.service';
 import { CreatorsService } from './services/creators.service';
+import { NotificationsService } from './services/notifications.service';
 import { PlaybackService } from './services/playback.service';
 import { SiteConfigService } from './services/site_config.service';
 import { StudioService } from './services/studio.service';
@@ -64,6 +65,7 @@ export class SharedModule {
                 AdminRequiredGuard,
                 AuthRequiredGuard,
                 UnauthRequiredGuard,
+				NotificationsService,
 			],
 		};
 	}

@@ -43,7 +43,12 @@
                 </div>
             </div>
             <div class="right">
-
+                <button
+                    mat-button
+                    class="notify-button"
+                    (click)="browser_notifications_subscribe(meta.id)">
+                    <fa-icon [icon]="icons.notify_bell"></fa-icon>
+                </button>
             </div>
         </div>
 

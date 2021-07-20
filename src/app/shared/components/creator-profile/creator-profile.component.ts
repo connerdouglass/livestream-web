@@ -1,8 +1,9 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { interval, merge, of, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { CreatorsService } from '../../services/creators.service';
+import { NotificationsService } from '../../services/notifications.service';
 import { PlaybackService } from '../../services/playback.service';
 
 @Component({
@@ -11,6 +12,10 @@ import { PlaybackService } from '../../services/playback.service';
 	styleUrls: ['./creator-profile.component.scss']
 })
 export class CreatorProfileComponent implements OnInit, OnDestroy {
+
+	public readonly icons = {
+		notify_bell: faBell,
+	};
 
 	/**
 	 * Subject for the username string
@@ -63,7 +68,7 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 	public constructor(
 		private creators_service: CreatorsService,
 		private playback_service: PlaybackService,
-		private sanitizer: DomSanitizer,
+		private notifications_service: NotificationsService,
 	) {}
 
 	public ngOnInit(): void {}
@@ -71,6 +76,12 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 	public ngOnDestroy(): void {
 		this.destroyed$.next();
 		this.destroyed$.complete();
+	}
+
+	public async browser_notifications_subscribe(creator_id: number): Promise<void> {
+
+		await this.notifications_service.request_notifications(creator_id);
+
 	}
 
 }
