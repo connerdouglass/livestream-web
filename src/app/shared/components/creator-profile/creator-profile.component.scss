@@ -47,10 +47,11 @@
             {
                 $notice-height: 100px;
                 position: absolute;
-                height: $notice-height;
-                line-height: $notice-height;
+                // height: $notice-height;
+                // line-height: $notice-height;
                 top: 50%;
-                margin-top: -$notice-height / 2;
+                // margin-top: -$notice-height / 2;
+                transform: translateY(-50%);
                 width: 100%;
                 color: #FFF;
                 font-weight: 500;
