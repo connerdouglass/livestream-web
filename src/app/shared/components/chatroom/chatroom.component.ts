@@ -1,7 +1,7 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, takeUntil } from 'rxjs/operators';
+import { combineLatest, ReplaySubject, Subject } from 'rxjs';
+import { distinctUntilChanged, map, shareReplay, switchMap, takeUntil } from 'rxjs/operators';
 import { AppStateService } from '../../services/app_state.service';
 import { TelegramAuthService } from '../../services/telegram_auth.service';
 import { User } from '../telegram-login-button/telegram-login-button.component';
@@ -43,42 +43,42 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 	 */
 	@ViewChild('chatroom') public chatroom_frame?: ElementRef<HTMLIFrameElement>;
 
+	/**
+	 * Subject emitted when the chatroom is ready
+	 */
+	private chatroom_ready$ = new Subject<void>();
+
 	public constructor(
 		public telegram_auth_service: TelegramAuthService,
 		public app_state_service: AppStateService,
 		private sanitizer: DomSanitizer,
 	) {}
 
+	@HostListener('window:message', ['$event'])
+	public onWindowMessage(event: MessageEvent<any>): void {
+
+		// If this is a chatroom ready event
+		if (event.data?.type === 'chatroom-ready') this.chatroom_ready$.next();
+
+	}
+
 	public ngOnInit(): void {
-		this.telegram_auth_service.user$
+		combineLatest([
+				this.telegram_auth_service.user$,
+				this.chatroom_ready$,	
+			])
 			.pipe(takeUntil(this.destroyed$))
-			.subscribe(user => this.broadcast_user(user))
+			.subscribe(([ user, _ ]) => {
+				this.chatroom_frame?.nativeElement.contentWindow?.postMessage({
+					type: 'auth',
+					user: user,
+				}, '*');
+			});
 	}
 
 	public ngOnDestroy(): void {
 		this.destroyed$.next();
 		this.destroyed$.complete();
-	}
-
-	public logged_in(user: User): void {
-		this.telegram_auth_service.storeUser(user);
-		this.broadcast_user(user);
-	}
-
-	private async broadcast_user(user: User | null): Promise<void> {
-		// TODO: This function is full of race conditions as we don't *really* know when the iframe has loaded
-		// and the message handler has been registered on that end
-		while (!this.chatroom_frame?.nativeElement.contentWindow) {
-			await new Promise<void>(resolve => setTimeout(resolve, 100));
-		}
-		this.chatroom_frame.nativeElement.contentDocument?.addEventListener('load', () => {
-			setTimeout(() => {
-				this.chatroom_frame?.nativeElement.contentWindow?.postMessage({
-					type: 'auth',
-					user: user,
-				}, '*');
-			}, 500);
-		});
 	}
 
 }
