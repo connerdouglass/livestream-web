@@ -1,10 +1,9 @@
 import { Component, ElementRef, HostListener, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { combineLatest, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay, switchMap, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, shareReplay, takeUntil } from 'rxjs/operators';
 import { AppStateService } from '../../services/app_state.service';
 import { TelegramAuthService } from '../../services/telegram_auth.service';
-import { User } from '../telegram-login-button/telegram-login-button.component';
 
 @Component({
 	selector: 'app-chatroom',
