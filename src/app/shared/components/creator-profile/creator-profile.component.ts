@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { faBell } from '@fortawesome/free-solid-svg-icons';
 import { interval, merge, of, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
-import { CreatorsService } from '../../services/creators.service';
+import { CreatorsService, ICreatorMeta } from '../../services/creators.service';
 import { NotificationsService } from '../../services/notifications.service';
 import { PlaybackService } from '../../services/playback.service';
 
@@ -31,7 +31,15 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 			return merge(
 				of(0),
 				interval(5000),
-			).pipe(switchMap(() => this.creators_service.getCreatorMeta(username)))
+			).pipe(switchMap(async () => {
+				try {
+					return await this.creators_service.getCreatorMeta(username);
+				} catch (err) {
+					console.error(err);
+					return null;
+				}
+			}))
+			.pipe(filter((value): value is ICreatorMeta => !!value))
 		}))
 		.pipe(shareReplay(1));
 

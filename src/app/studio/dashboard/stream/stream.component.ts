@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { interval, merge, of } from 'rxjs';
-import { distinct, distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { PlaybackService } from 'src/app/shared/services/playback.service';
 import { SiteConfigService } from 'src/app/shared/services/site_config.service';
-import { StudioService } from 'src/app/shared/services/studio.service';
+import { IStream, StudioService } from 'src/app/shared/services/studio.service';
 
 @Component({
 	selector: 'app-studio-dash-stream',
@@ -20,7 +20,15 @@ export class DashStreamComponent {
 			return merge(
 				of(0),
 				interval(2500),
-			).pipe(switchMap(() => this.studio_service.get_stream(stream_id)))
+			).pipe(switchMap(async () => {
+				try {
+					return await this.studio_service.get_stream(stream_id);
+				} catch (err) {
+					console.error(err);
+					return null;
+				}
+			}))
+			.pipe(filter((value): value is IStream => !!value))
 		}))
 		.pipe(shareReplay(1));
 

@@ -4,7 +4,7 @@ import { switchMap } from "rxjs/operators";
 import { ApiService } from "./api.service";
 import { AuthService } from "./auth.service";
 
-interface IStream {
+export interface IStream {
     id: number;
     identifier: string;
     title: string;

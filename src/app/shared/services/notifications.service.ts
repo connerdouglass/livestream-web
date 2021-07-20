@@ -53,7 +53,6 @@ export class NotificationsService {
             const state = await this.app_state_service.state$
                 .pipe(take(1))
                 .toPromise();
-            console.log(state);
 
             // Subscribe to notifications
             const subscription = await register.pushManager.subscribe({
