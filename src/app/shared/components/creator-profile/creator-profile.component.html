@@ -45,12 +45,25 @@
             <div class="right">
                 <button
                     mat-button
-                    class="notify-button"
+                    class="notify-button browser"
                     (click)="browser_notifications_subscribe(meta.id)"
                     matTooltip="Subscribe to web push notifications">
                     <fa-icon [icon]="icons.notify_bell"></fa-icon>
-                    <span>Subscribe</span>
+                    <span>Browser</span>
                 </button>
+                <ng-container *ngIf="(app_state_service.state$ | async)?.telegram_bot_username as telegram_bot_username">
+                    <br />
+                    <a
+                        mat-button
+                        class="notify-button telegram"
+                        href="https://t.me/{{ telegram_bot_username }}"
+                        target="_blank"
+                        matTooltip="Subscribe to Telegram push notifications"
+                        [disabled]="!(telegram_auth_service.user$ | async)">
+                        <fa-icon [icon]="icons.notify_bell"></fa-icon>
+                        <span>Telegram</span>
+                    </a>
+                </ng-container>
             </div>
         </div>
 

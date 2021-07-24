@@ -163,9 +163,27 @@
 
                 .notify-button
                 {
+                    margin-bottom: 5px;
+
                     span
                     {
                         margin-left: 6px;
+                    }
+
+                    &[disabled]
+                    {
+                        opacity: 0.5;
+                        color: #FFF;
+                    }
+
+                    &.browser
+                    {
+                        background-color: rgba(0, 0, 0, 0.1);
+                    }
+
+                    &.telegram
+                    {
+                        background-color: rgba(#08F, 0.5);
                     }
                 }
             }

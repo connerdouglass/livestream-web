@@ -4,6 +4,20 @@ self.addEventListener('push', event => {
 
     self.registration.showNotification(data.title, {
         body: data.body,
+        data: {
+            link: data.link,
+        },
     });
+
+});
+
+self.addEventListener('notificationclick', event => {
+
+    console.log('On notification click: ', event.notification.data);
+    event.notification.close();
+
+    if (event.notification.data && event.notification.data.link) {
+        clients.openWindow(event.notification.data.link);
+    }
 
 });

@@ -2,9 +2,11 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { faBell, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { interval, merge, of, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { AppStateService } from '../../services/app_state.service';
 import { CreatorsService, ICreatorMeta } from '../../services/creators.service';
 import { NotificationsService } from '../../services/notifications.service';
 import { PlaybackService } from '../../services/playback.service';
+import { TelegramAuthService } from '../../services/telegram_auth.service';
 
 @Component({
 	selector: 'app-creator-profile',
@@ -75,6 +77,8 @@ export class CreatorProfileComponent implements OnInit, OnDestroy {
 	private destroyed$ = new Subject<void>();
 
 	public constructor(
+		public app_state_service: AppStateService,
+		public telegram_auth_service: TelegramAuthService,
 		private creators_service: CreatorsService,
 		private playback_service: PlaybackService,
 		private notifications_service: NotificationsService,
