@@ -1,0 +1,35 @@
+mat-drawer-container
+{
+    height: 100vh;
+    background-color: transparent;
+    color: inherit;
+}
+
+mat-drawer-content
+{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .header
+    {
+        @import './shared/components/header/header-size.scss';
+        flex-grow: 0;
+        flex-shrink: 0;
+        height: $header-height;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .content
+    {
+        flex-grow: 1;
+        flex-shrink: 1;
+        position: relative;
+        min-height: 0;
+    }
+}
+
+mat-drawer
+{
+    background-color: transparent;
+}

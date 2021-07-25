@@ -4,6 +4,7 @@ import { shareReplay } from 'rxjs/operators';
 import { ApiService } from './api.service';
 
 export interface IAppState {
+    platform_title: string;
     main_creator_username: string;
     telegram_bot_username: string;
     vapid_public_key: string;

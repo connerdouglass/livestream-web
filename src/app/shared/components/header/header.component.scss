@@ -1,0 +1,40 @@
+@import '../../../../styles/responsive.scss';
+@import './header-size.scss';
+
+.header
+{
+    height: $header-height;
+    line-height: $header-height;
+    display: flex;
+
+    > .left,
+    > .right
+    {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+    > .left
+    {
+        padding-left: 16px;
+
+        > .drawer-button
+        {
+            margin-right: 10px;
+        }
+
+        > .title
+        {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 120%;
+            font-weight: 600;
+        }
+    }
+
+    > .right
+    {
+        text-align: right;
+        padding-right: 16px;
+    }
+}

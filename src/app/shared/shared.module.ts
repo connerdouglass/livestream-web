@@ -6,9 +6,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ChatRoomComponent } from './components/chatroom/chatroom.component';
 import { CreatorProfileComponent } from './components/creator-profile/creator-profile.component';
+import { DrawerComponent } from './components/drawer/drawer.component';
+import { HeaderComponent } from './components/header/header.component';
 import { StudioLoginForm } from './components/studio-login-form/studio-login-form.component';
 import { TelegramLoginButtonComponent } from './components/telegram-login-button/telegram-login-button.component';
 import { VideoPlayer } from './components/video-player/video-player.component';
@@ -26,6 +29,7 @@ import { SiteConfigService } from './services/site_config.service';
 import { StudioService } from './services/studio.service';
 import { TelegramAuthService } from './services/telegram_auth.service';
 import { TelegramNotificationsService } from './services/telegram_notifications.service';
+import { TitleService } from './services/title.service';
 
 @NgModule({
 	declarations: [
@@ -34,11 +38,14 @@ import { TelegramNotificationsService } from './services/telegram_notifications.
 		StudioLoginForm,
 		TelegramLoginButtonComponent,
 		ChatRoomComponent,
+		HeaderComponent,
+		DrawerComponent,
 	],
 	imports: [
 		CommonModule,
 		FormsModule,
 		FontAwesomeModule,
+		RouterModule,
 		MatInputModule,
 		MatButtonModule,
 		MatProgressSpinnerModule,
@@ -51,6 +58,8 @@ import { TelegramNotificationsService } from './services/telegram_notifications.
 		StudioLoginForm,
 		TelegramLoginButtonComponent,
 		ChatRoomComponent,
+		HeaderComponent,
+		DrawerComponent,
 	],
 })
 export class SharedModule {
@@ -58,6 +67,7 @@ export class SharedModule {
 		return {
 			ngModule: SharedModule,
 			providers: [
+				TitleService,
 				ApiService,
 				AppStateService,
 				AuthTokenService,

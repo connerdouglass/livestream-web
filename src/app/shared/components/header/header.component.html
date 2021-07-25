@@ -1,0 +1,14 @@
+<div class="header">
+    <div class="left">
+        <button
+            mat-button
+            class="drawer-button"
+            (click)="toggleDrawer.emit()">
+            <fa-icon [icon]="icons.drawer"></fa-icon>
+        </button>
+        <div class="title">{{ (app_state_service.state$ | async)?.platform_title }}</div>
+    </div>
+    <div class="right">
+
+    </div>
+</div>

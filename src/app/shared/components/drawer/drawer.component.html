@@ -1,0 +1,10 @@
+<div class="drawer">
+    <div class="title">{{ (app_state_service.state$ | async)?.platform_title }}</div>
+    <div class="links">
+        <a
+            routerLink="/"
+            (click)="clickedLink.emit()">
+            <span>Home</span>
+        </a>
+    </div>
+</div>

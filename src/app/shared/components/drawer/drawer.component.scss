@@ -1,0 +1,33 @@
+@import '../../../../styles/responsive.scss';
+
+.drawer
+{
+    width: 100vw;
+    max-width: 300px;
+    height: 100%;
+    background-color: #222;
+    color: #FFF;
+
+    > .title
+    {
+        font-size: 240%;
+        font-weight: 600;
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .links
+    {
+        padding: 20px;
+
+        a
+        {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #FFF;
+            padding: 12px;
+            border-radius: 4px;
+            display: block;
+            text-decoration: none;
+        }
+    }
+}
