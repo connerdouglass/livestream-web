@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { faCompress, faExpand, faExternalLinkAlt, faVolumeMute, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
+import { faCompress, faExpand, faExternalLinkAlt, faPlay, faVolumeMute, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import Hls from 'hls.js';
 import { Subject } from "rxjs";
 
@@ -11,6 +11,7 @@ import { Subject } from "rxjs";
 export class VideoPlayer implements OnInit, OnDestroy {
 
     public readonly icons = {
+        play: faPlay,
         mute: faVolumeMute,
         unmute: faVolumeUp,
         fullscreen: faExpand,

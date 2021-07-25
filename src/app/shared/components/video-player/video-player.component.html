@@ -24,6 +24,16 @@
                 [class.keep-visible]="video.muted || video.paused">
                 <div class="left">
                     <div
+                        *ngIf="video.paused"
+                        class="control play"
+                        (click)="video.play()"
+                        matTooltip="Play video"
+                        matTooltipPosition="above">
+                        <fa-icon
+                            [fixedWidth]="true"
+                            [icon]="icons.play"></fa-icon>
+                    </div>
+                    <div
                         class="control mute"
                         (click)="video.muted ? unmute() : video.muted = true"
                         [matTooltip]="video.muted ? 'Un-mute video' : 'Mute video'"
