@@ -166,12 +166,20 @@
         > .notifications-section
         {
             text-align: center;
-            padding-top: 20px;
-            padding-bottom: 60px;
+
+            @include responsive('desktop')
+            {
+                padding-bottom: 60px;
+            }
+
+            @include responsive('mobile')
+            {
+                padding-bottom: 10px;
+            }
 
             .notifications-wrap
             {
-                padding: 20px;
+                padding: 16px;
                 background-color: rgba(0, 0, 0, 0.4);
                 border-radius: 4px;
                 display: inline-block;
