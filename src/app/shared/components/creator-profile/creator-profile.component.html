@@ -49,27 +49,6 @@
         </div>
 
         <div class="notifications-section">
-            <!-- <button
-                *ngIf="browser_notifications_service.supported$() | async"
-                mat-button
-                class="notify-button browser"
-                [class.subbed]="browser_notifications_service.subscribed_to$(meta.id) | async"
-                (click)="clicked_sub_button(browser_notifications_service, meta.id)"
-                matTooltip="Subscribe to web push notifications">
-                <fa-icon [icon]="icons.notify_bell"></fa-icon>
-                <span>Browser</span>
-            </button>
-            <br />
-            <button
-                *ngIf="telegram_notifications_service.supported$() | async"
-                mat-button
-                class="notify-button telegram"
-                [class.subbed]="telegram_notifications_service.subscribed_to$(meta.id) | async"
-                (click)="clicked_sub_button(telegram_notifications_service, meta.id)"
-                matTooltip="Subscribe to Telegram push notifications">
-                <fa-icon [icon]="icons.notify_bell"></fa-icon>
-                <span>Telegram</span>
-            </button> -->
             <div class="notifications-wrap">
                 <mat-slide-toggle
                     *ngIf="browser_notifications_service.supported$() | async"
@@ -86,8 +65,6 @@
                 </mat-slide-toggle>
             </div>
         </div>
-
-        <!-- Subs: {{ browser_notifications_service.state$ | async | json }} -->
 
     </div>
     <div class="livechat">
