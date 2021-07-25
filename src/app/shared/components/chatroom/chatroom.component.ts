@@ -4,6 +4,7 @@ import { combineLatest, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, takeUntil } from 'rxjs/operators';
 import { AppStateService } from '../../services/app_state.service';
 import { TelegramAuthService } from '../../services/telegram_auth.service';
+import { User } from '../telegram-login-button/telegram-login-button.component';
 
 @Component({
 	selector: 'app-chatroom',
@@ -70,9 +71,22 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 			.subscribe(([ user, _ ]) => {
 				this.chatroom_frame?.nativeElement.contentWindow?.postMessage({
 					type: 'auth',
-					user: user,
+					user: {
+						username: this.format_username(user),
+						photo_url: user?.photo_url,
+					},
 				}, '*');
 			});
+	}
+
+	private format_username(user: User | null): string {
+		if (!user) return 'User';
+		if (user.username && user.username.length > 0) return user.username;
+		const parts: string[] = [];
+		if (user.first_name && user.first_name.length > 0) parts.push(user.first_name);
+		if (user.last_name && user.last_name.length > 0) parts.push(user.last_name);
+		if (parts.length > 0) return parts.join(' ');
+		return 'User';
 	}
 
 	public ngOnDestroy(): void {
