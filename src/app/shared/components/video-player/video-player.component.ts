@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { faCompress, faExpand, faExternalLinkAlt, faVolumeMute, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import Hls from 'hls.js';
 import { Subject } from "rxjs";
 
@@ -8,6 +9,15 @@ import { Subject } from "rxjs";
     templateUrl: './video-player.component.html',
 })
 export class VideoPlayer implements OnInit, OnDestroy {
+
+    public readonly icons = {
+        mute: faVolumeMute,
+        unmute: faVolumeUp,
+        fullscreen: faExpand,
+        exit_fullscreen: faCompress,
+        pip: faExternalLinkAlt,
+        exit_pip: faExternalLinkAlt,
+    };
 
     /**
      * The HLS player adapter
@@ -25,9 +35,14 @@ export class VideoPlayer implements OnInit, OnDestroy {
     private destroyed$ = new Subject<void>();
 
     /**
+     * The wrapper element for the video player
+     */
+    @ViewChild('fullscreen_wrap') public fullscreen_wrap?: ElementRef<HTMLDivElement>;
+
+    /**
      * The video player element on the component
      */
-    @ViewChild('video') public video_element!: ElementRef<HTMLVideoElement>;
+    @ViewChild('video') public video_element?: ElementRef<HTMLVideoElement>;
 
     /**
      * Sets the source URL for the video to play
@@ -39,6 +54,11 @@ export class VideoPlayer implements OnInit, OnDestroy {
             });
         }, 0);
     }
+
+    /**
+     * The source URL for the chat box
+     */
+    @Input('chat-src') public chat_src?: string;
 
     public constructor(
         private zone: NgZone,
@@ -84,6 +104,8 @@ export class VideoPlayer implements OnInit, OnDestroy {
 
     private setup_video(src: string): void {
 
+        if (!this.video_element) return;
+
         const video = this.video_element.nativeElement;
 
         const video_ready_handler = () => {
@@ -120,8 +142,50 @@ export class VideoPlayer implements OnInit, OnDestroy {
 
     }
 
+    public is_mobile(): boolean {
+        return screen.width < 400;
+    }
+
     public unfreeze(): void {
+        if (!this.video_element) return;
         this.video_element.nativeElement.src = this.video_element.nativeElement.src;
+    }
+
+    public is_fullscreen(): boolean {
+        return !!document.fullscreenElement && (
+            document.fullscreenElement === this.video_element?.nativeElement ||
+            document.fullscreenElement === this.fullscreen_wrap?.nativeElement
+        );
+    }
+
+    public enter_fullscreen(): void {
+
+        // If we're mobile
+        if (this.is_mobile()) {
+            this.video_element?.nativeElement.requestFullscreen();
+        } else {
+            this.fullscreen_wrap?.nativeElement.requestFullscreen();
+        }
+
+    }
+
+    public exit_fullscreen(): void {
+        document.exitFullscreen();
+    }
+
+    public is_pip(): boolean {
+        return !!(document as any).pictureInPictureElement && ((document as any).pictureInPictureElement === this.video_element?.nativeElement);
+    }
+
+    public enter_pip(): void {
+        if ((document as any).pictureInPictureElement) {
+            this.exit_pip();
+        }
+        (this.video_element?.nativeElement as any)?.requestPictureInPicture?.();
+    }
+
+    public exit_pip(): void {
+        (document as any).exitPictureInPicture?.()
     }
 
 }

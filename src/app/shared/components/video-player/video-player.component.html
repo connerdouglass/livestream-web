@@ -1,21 +1,67 @@
-<div class="video-player">
-    <div
-        class="video-overlay"
-        [style.height.px]="video?.getBoundingClientRect()?.height ?? 0">
-        <div
-            *ngIf="video_ready && video.muted"
-            class="unmute-button"
-            (click)="unmute()">Click to Un-Mute</div>
-        <div
-            *ngIf="!video_ready"
-            class="loading-spinner">
-            <mat-spinner
-                [strokeWidth]="5"
-                [diameter]="100"></mat-spinner>
+<div
+    #fullscreen_wrap
+    class="video-player"
+    [class.fullscreen]="is_fullscreen()">
+    <div class="video-wrap">
+        <div class="video-overlay">
+            <div
+                *ngIf="video_ready && video.muted"
+                class="unmute-button"
+                (click)="unmute()">
+                <fa-icon [icon]="icons.mute"></fa-icon>
+                <span>Click to Un-Mute</span>
+            </div>
+            <div
+                *ngIf="!video_ready"
+                class="loading-spinner">
+                <mat-spinner
+                    [strokeWidth]="5"
+                    [diameter]="100"></mat-spinner>
+            </div>
+            <div
+                *ngIf="video_ready"
+                class="controls">
+                <div class="left">
+                    <div
+                        class="control mute"
+                        (click)="video.muted ? unmute() : video.muted = true"
+                        [matTooltip]="video.muted ? 'Un-mute video' : 'Mute video'"
+                        matTooltipPosition="above">
+                        <fa-icon
+                            [fixedWidth]="true"
+                            [icon]="video.muted ? icons.mute : icons.unmute"></fa-icon>
+                    </div>
+                </div>
+                <div class="right">
+                    <div
+                        class="control pip"
+                        (click)="is_pip() ? exit_pip() : enter_pip()"
+                        [matTooltip]="is_pip() ? 'Exit picture-in-picture' : 'Picture-in-picture'"
+                        matTooltipPosition="above">
+                        <fa-icon
+                            [fixedWidth]="true"
+                            [icon]="is_pip() ? icons.exit_pip : icons.pip"></fa-icon>
+                    </div>
+                    <div
+                        class="control fullscreen"
+                        (click)="is_fullscreen() ? exit_fullscreen() : enter_fullscreen()"
+                        [matTooltip]="is_fullscreen() ? 'Exit fullscreen' : 'Enter fullscreen'"
+                        matTooltipPosition="above">
+                        <fa-icon
+                            [fixedWidth]="true"
+                            [icon]="is_fullscreen() ? icons.exit_fullscreen : icons.fullscreen"></fa-icon>
+                    </div>
+                </div>
+            </div>
         </div>
+        <video
+            #video
+            autoplay
+            playsinline></video>
     </div>
-    <video
-        #video
-        autoplay
-        playsinline></video>
+    <div
+        *ngIf="chat_src && is_fullscreen()"
+        class="chat-wrap">
+        <app-chatroom [src]="chat_src"></app-chatroom>
+    </div>
 </div>

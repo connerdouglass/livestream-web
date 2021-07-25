@@ -1,66 +1,163 @@
 .video-player
 {
+    display: flex;
+    flex-direction: row;
     position: relative;
-    background-color: #000;
+    height: 100%;
 
-    .video-overlay
+    // &.fullscreen
+    // {
+    //     position: fixed;
+    //     left: 0;
+    //     right: 0;
+    //     top: 0;
+    //     bottom: 0;
+    // }
+
+    .video-wrap
     {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
+        flex-grow: 1;
+        flex-shrink: 1;
+        background-color: #000;
+        position: relative;
         height: 100%;
-        z-index: 2;
-        
-        .unmute-button
-        {
-            $button-width: 100px;
-            $button-height: 36px;
 
-            position: absolute;
-            left: 50%;
-            top: 20px;
-            text-align: center;
-            height: $button-height;
-            line-height: $button-height;
-            user-select: none;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #FFF;
-            border-radius: 2px;
-            cursor: pointer;
-            padding-left: 20px;
-            padding-right: 20px;
-            transform: translateX(-50%);
-            font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
+        &:hover > .video-overlay > .controls
+        {
+            opacity: 1;
         }
 
-        .loading-spinner
+        .video-overlay
         {
-            $spinner-size: 100px;
-
             position: absolute;
-            text-align: center;
-            top: 50%;
-            left: 50%;
-            margin-left: -$spinner-size / 2;
-            margin-top: -$spinner-size / 2;
-            width: $spinner-size;
-            height: $spinner-size;
-
-            ::ng-deep .mat-spinner circle
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            
+            .unmute-button
             {
-                stroke: #fff;
+                $button-height: 42px;
+
+                position: absolute;
+                left: 50%;
+                top: 20px;
+                text-align: center;
+                height: $button-height;
+                line-height: $button-height;
+                user-select: none;
+                background-color: rgba(0, 0, 0, 0.5);
+                color: #FFF;
+                border-radius: $button-height / 2;
+                cursor: pointer;
+                padding-left: $button-height * 0.75;
+                padding-right: $button-height * 0.75;
+                transform: translateX(-50%);
+                font-weight: 600;
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                transform-origin: center center;
+                backdrop-filter: blur(10px);
+                transition: transform 0.3s;
+                text-transform: uppercase;
+
+                &:active
+                {
+                    transform: translateX(-50%) scale(0.9, 0.9);
+                }
+
+                > span
+                {
+                    margin-left: 8px;
+                }
             }
+
+            .loading-spinner
+            {
+                $spinner-size: 100px;
+
+                position: absolute;
+                text-align: center;
+                top: 50%;
+                left: 50%;
+                margin-left: -$spinner-size / 2;
+                margin-top: -$spinner-size / 2;
+                width: $spinner-size;
+                height: $spinner-size;
+
+                ::ng-deep .mat-spinner circle
+                {
+                    stroke: #fff;
+                }
+            }
+
+            .controls
+            {
+                $controls-outer-height: 50px;
+                $controls-height: 42px;
+
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: $controls-outer-height;
+                padding-top: $controls-outer-height - $controls-height;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: flex;
+                background: rgb(0,0,0);
+                background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+                opacity: 0;
+                transition: opacity 1s;
+
+                > .left
+                {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    padding-left: 10px;
+                }
+
+                > .right
+                {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    text-align: right;
+                    padding-right: 10px;
+                }
+
+                > .left,
+                > .right
+                {
+                    > .control
+                    {
+                        display: inline-block;
+                        vertical-align: middle;
+                        height: $controls-height;
+                        line-height: $controls-height;
+                        cursor: pointer;
+                        min-width: $controls-height;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        video
+        {
+            z-index: 1;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
         }
     }
 
-    video
+    .chat-wrap
     {
+        flex-grow: 0;
+        flex-shrink: 0;
+        width: 350px;
         position: relative;
-        width: 100%;
-        z-index: 1;
     }
 }
