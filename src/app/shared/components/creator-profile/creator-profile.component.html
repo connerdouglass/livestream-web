@@ -44,29 +44,50 @@
                 </div>
             </div>
             <div class="right">
-                <button
-                    mat-button
-                    class="notify-button browser"
-                    (click)="browser_notifications_subscribe(meta.id)"
-                    matTooltip="Subscribe to web push notifications">
-                    <fa-icon [icon]="icons.notify_bell"></fa-icon>
-                    <span>Browser</span>
-                </button>
-                <ng-container *ngIf="(app_state_service.state$ | async)?.telegram_bot_username as telegram_bot_username">
-                    <br />
-                    <a
-                        mat-button
-                        class="notify-button telegram"
-                        href="https://t.me/{{ telegram_bot_username }}"
-                        target="_blank"
-                        matTooltip="Subscribe to Telegram push notifications"
-                        [disabled]="!(telegram_auth_service.user$ | async)">
-                        <fa-icon [icon]="icons.notify_bell"></fa-icon>
-                        <span>Telegram</span>
-                    </a>
-                </ng-container>
+                <!-- Viewer count goes here -->
             </div>
         </div>
+
+        <div class="notifications-section">
+            <!-- <button
+                *ngIf="browser_notifications_service.supported$() | async"
+                mat-button
+                class="notify-button browser"
+                [class.subbed]="browser_notifications_service.subscribed_to$(meta.id) | async"
+                (click)="clicked_sub_button(browser_notifications_service, meta.id)"
+                matTooltip="Subscribe to web push notifications">
+                <fa-icon [icon]="icons.notify_bell"></fa-icon>
+                <span>Browser</span>
+            </button>
+            <br />
+            <button
+                *ngIf="telegram_notifications_service.supported$() | async"
+                mat-button
+                class="notify-button telegram"
+                [class.subbed]="telegram_notifications_service.subscribed_to$(meta.id) | async"
+                (click)="clicked_sub_button(telegram_notifications_service, meta.id)"
+                matTooltip="Subscribe to Telegram push notifications">
+                <fa-icon [icon]="icons.notify_bell"></fa-icon>
+                <span>Telegram</span>
+            </button> -->
+            <div class="notifications-wrap">
+                <mat-slide-toggle
+                    *ngIf="browser_notifications_service.supported$() | async"
+                    [checked]="browser_notifications_service.subscribed_to$(meta.id) | async"
+                    (change)="browser_notifications_service.set_subscribed(meta.id, $event.checked)">
+                    Browser Notifications
+                </mat-slide-toggle>
+                <br />
+                <mat-slide-toggle
+                    *ngIf="telegram_notifications_service.supported$() | async"
+                    [checked]="telegram_notifications_service.subscribed_to$(meta.id) | async"
+                    (change)="telegram_notifications_service.set_subscribed(meta.id, $event.checked)">
+                    Telegram Notifications
+                </mat-slide-toggle>
+            </div>
+        </div>
+
+        <!-- Subs: {{ browser_notifications_service.state$ | async | json }} -->
 
     </div>
     <div class="livechat">

@@ -4,6 +4,7 @@ self.addEventListener('push', event => {
 
     self.registration.showNotification(data.title, {
         body: data.body,
+        image: data.image,
         data: {
             link: data.link,
         },

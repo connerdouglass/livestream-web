@@ -160,33 +160,64 @@
                 flex-grow: 1;
                 flex-shrink: 1;
                 text-align: right;
+            }
+        }
 
-                .notify-button
+        > .notifications-section
+        {
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 60px;
+
+            .notifications-wrap
+            {
+                padding: 20px;
+                background-color: rgba(0, 0, 0, 0.4);
+                border-radius: 4px;
+                display: inline-block;
+            }
+
+            mat-slide-toggle
+            {
+                font-weight: 600;
+                text-transform: uppercase;
+
+                &:not(:last-child)
                 {
-                    margin-bottom: 5px;
-
-                    span
-                    {
-                        margin-left: 6px;
-                    }
-
-                    &[disabled]
-                    {
-                        opacity: 0.5;
-                        color: #FFF;
-                    }
-
-                    &.browser
-                    {
-                        background-color: rgba(0, 0, 0, 0.1);
-                    }
-
-                    &.telegram
-                    {
-                        background-color: rgba(#08F, 0.5);
-                    }
+                    margin-bottom: 10px;
                 }
             }
+
+            // .notify-button
+            // {
+            //     margin-bottom: 5px;
+
+            //     span
+            //     {
+            //         margin-left: 6px;
+            //     }
+
+            //     &[disabled]
+            //     {
+            //         opacity: 0.5;
+            //         color: #FFF;
+            //     }
+
+            //     &.browser
+            //     {
+            //         background-color: rgba(0, 0, 0, 0.1);
+            //     }
+
+            //     &.telegram
+            //     {
+            //         background-color: rgba(#08F, 0.5);
+            //     }
+
+            //     &.subbed
+            //     {
+            //         color: Red;
+            //     }
+            // }
         }
     }
 
