@@ -160,17 +160,38 @@ export class VideoPlayer implements OnInit, OnDestroy {
 
     public enter_fullscreen(): void {
 
+        // The element to request fullscreen
+        let element: any;
+
         // If we're mobile
         if (this.is_mobile()) {
-            this.video_element?.nativeElement.requestFullscreen();
+            element = this.video_element?.nativeElement;
         } else {
-            this.fullscreen_wrap?.nativeElement.requestFullscreen();
+            element = this.fullscreen_wrap?.nativeElement;
         }
+
+        // Ensure there is actually an element
+        if (!element) return;
+
+        // Platform-specific fullscreen call
+        if (element.requestFullscreen) element.requestFullscreen();
+        else if (element.mozRequestFullScreen) element.mozRequestFullScreen();
+        else if (element.webkitRequestFullscreen) element.webkitRequestFullscreen((Element as any).ALLOW_KEYBOARD_INPUT);
+        else if (element.msRequestFullscreen) element.msRequestFullscreen();
 
     }
 
     public exit_fullscreen(): void {
-        document.exitFullscreen();
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if ((document as any).mozCancelFullScreen) (document as any).mozCancelFullScreen();
+        else if ((document as any).webkitExitFullscreen) (document as any).webkitExitFullscreen();
+        else if ((document as any).msExitFullscreen) (document as any).msExitFullscreen();
+    }
+
+    public supports_pip(): boolean {
+        return [
+            'requestPictureInPicture',
+        ].some(key => key in HTMLElement.prototype);
     }
 
     public is_pip(): boolean {

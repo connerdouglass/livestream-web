@@ -34,6 +34,7 @@
                 </div>
                 <div class="right">
                     <div
+                        *ngIf="supports_pip()"
                         class="control pip"
                         (click)="is_pip() ? exit_pip() : enter_pip()"
                         [matTooltip]="is_pip() ? 'Exit picture-in-picture' : 'Picture-in-picture'"
