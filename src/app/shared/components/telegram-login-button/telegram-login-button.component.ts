@@ -104,7 +104,7 @@ export class TelegramLoginButtonComponent implements AfterViewInit {
         if (this.config?.buttonStyle) {
             configs['data-size'] = this.config.buttonStyle;
         } else {
-            configs['data-size'] = 'large';
+            configs['data-size'] = 'medium';
         }
 
         return configs;
