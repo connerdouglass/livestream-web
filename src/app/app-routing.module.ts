@@ -12,7 +12,7 @@ const routes: Routes = [
 		loadChildren: () => import('./landing/landing-page.module').then(m => m.LandingPageModule),
 	},
 	{
-		path: '',
+		path: 'user',
 		loadChildren: () => import('./creator-profile/creator-profile-page.module').then(m => m.CreatorProfilePageModule),
 	},
 ];
