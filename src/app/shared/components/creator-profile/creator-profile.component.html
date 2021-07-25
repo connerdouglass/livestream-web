@@ -48,7 +48,9 @@
             </div>
         </div>
 
-        <div class="notifications-section">
+        <div
+            class="notifications-section"
+            *ngIf="(browser_notifications_service.supported$() | async) || (telegram_notifications_service.supported$() | async)">
             <div class="notifications-wrap">
                 <mat-slide-toggle
                     *ngIf="browser_notifications_service.supported$() | async"

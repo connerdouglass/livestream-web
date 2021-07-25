@@ -117,7 +117,9 @@ export class BrowserNotificationsService implements NotificationsService {
      * Determines if browser notifications are supported on the platform
      */
     public supported$(): Observable<boolean> {
-        return of('serviceWorker' in navigator);
+        return of(
+            ('serviceWorker' in navigator) && ('PushManager' in window)
+        );
     }
     
     /**
