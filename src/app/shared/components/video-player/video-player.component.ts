@@ -152,9 +152,10 @@ export class VideoPlayer implements OnInit, OnDestroy {
     }
 
     public is_fullscreen(): boolean {
-        return !!document.fullscreenElement && (
-            document.fullscreenElement === this.video_element?.nativeElement ||
-            document.fullscreenElement === this.fullscreen_wrap?.nativeElement
+        const fullscreenElement = document.fullscreenElement ?? (document as any).webkitFullscreenElement;
+        return !!fullscreenElement && (
+            fullscreenElement === this.video_element?.nativeElement ||
+            fullscreenElement === this.fullscreen_wrap?.nativeElement
         );
     }
 
