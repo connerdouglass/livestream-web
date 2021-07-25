@@ -7,8 +7,14 @@ import { User } from "../components/telegram-login-button/telegram-login-button.
 @Injectable()
 export class TelegramAuthService {
 
+    /**
+     * The key used in localstorage to store the Telegram user
+     */
     private static readonly TELEGRAM_USER_KEY = 'telegram_user_key';
 
+    /**
+     * Subject used to update the current user
+     */
     private set_user$ = new Subject<User | null>();
 
     /**
@@ -20,12 +26,19 @@ export class TelegramAuthService {
     )
     .pipe(shareReplay(1));
 
+    /**
+     * Stores a Telegram user locally, or deletes the local user if null
+     * @param user the user to store
+     */
     public storeUser(user: User | null): void {
         if (!user) localStorage.removeItem(TelegramAuthService.TELEGRAM_USER_KEY);
         else localStorage.setItem(TelegramAuthService.TELEGRAM_USER_KEY, JSON.stringify(user));
         this.set_user$.next(user);
     }
 
+    /**
+     * Gets the Telegram user from local storage
+     */
     private getUser(): User | null {
         if ('telegram_user' in environment) return (environment as any).telegram_user;
         const str = localStorage.getItem(TelegramAuthService.TELEGRAM_USER_KEY);
@@ -35,6 +48,14 @@ export class TelegramAuthService {
         } catch (err) {
             return null;
         }
+    }
+
+    /**
+     * Logs the user out of the local session
+     */
+    public logout(): void {
+        this.storeUser(null);
+        this.set_user$.next(null);
     }
 
 }

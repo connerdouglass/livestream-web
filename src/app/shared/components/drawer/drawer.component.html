@@ -8,5 +8,12 @@
             <fa-icon [icon]="icons.home"></fa-icon>
             <span>Home</span>
         </a>
+        <a
+            *ngIf="telegram_auth_service.user$ | async"
+            matRipple
+            (click)="telegram_auth_service.logout(); clickedLink.emit()">
+            <fa-icon [icon]="icons.logout"></fa-icon>
+            <span>Logout</span>
+        </a>
     </div>
 </div>

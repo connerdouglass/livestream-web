@@ -5,7 +5,7 @@
             *ngIf="chatroom_url$ | async as chatroom_url"
             [src]="chatroom_url"></iframe>
     </div>
-    <ng-container *ngIf="app_state_service.state$ | async as app_state">
+    <!-- <ng-container *ngIf="app_state_service.state$ | async as app_state">
         <div
             class="login-box"
             *ngIf="!(telegram_auth_service.user$ | async)">
@@ -13,5 +13,5 @@
                 [botName]="app_state.telegram_bot_username"
                 (login)="telegram_auth_service.storeUser($event)"></app-telegram-login-button>
         </div>
-    </ng-container>
+    </ng-container> -->
 </div>

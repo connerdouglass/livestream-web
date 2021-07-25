@@ -21,14 +21,22 @@
         > .drawer-button
         {
             margin-right: 10px;
+            min-width: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(0, 0, 0, 0.1);
         }
 
         > .title
         {
             display: inline-block;
             vertical-align: middle;
-            font-size: 120%;
+            font-size: 130%;
             font-weight: 600;
+
+            @include responsive('mobile')
+            {
+                display: none;
+            }
         }
     }
 
