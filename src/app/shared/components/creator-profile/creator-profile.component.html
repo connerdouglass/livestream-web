@@ -52,19 +52,20 @@
             class="notifications-section"
             *ngIf="(browser_notifications_service.supported$() | async) || (telegram_notifications_service.supported$() | async)">
             <div class="notifications-wrap">
-                <mat-slide-toggle
-                    *ngIf="browser_notifications_service.supported$() | async"
-                    [checked]="browser_notifications_service.subscribed_to$(meta.id) | async"
-                    (change)="browser_notifications_service.set_subscribed(meta.id, $event.checked)">
-                    Browser Notifications
-                </mat-slide-toggle>
-                <br />
-                <mat-slide-toggle
-                    *ngIf="telegram_notifications_service.supported$() | async"
-                    [checked]="telegram_notifications_service.subscribed_to$(meta.id) | async"
-                    (change)="telegram_notifications_service.set_subscribed(meta.id, $event.checked)">
-                    Telegram Notifications
-                </mat-slide-toggle>
+                <div class="item" *ngIf="browser_notifications_service.supported$() | async">
+                    <mat-slide-toggle
+                        [checked]="browser_notifications_service.subscribed_to$(meta.id) | async"
+                        (change)="browser_notifications_service.set_subscribed(meta.id, $event.checked)">
+                        Browser Notifications
+                    </mat-slide-toggle>
+                </div>
+                <div class="item" *ngIf="telegram_notifications_service.supported$() | async">
+                    <mat-slide-toggle
+                        [checked]="telegram_notifications_service.subscribed_to$(meta.id) | async"
+                        (change)="telegram_notifications_service.set_subscribed(meta.id, $event.checked)">
+                        Telegram Notifications
+                    </mat-slide-toggle>
+                </div>
             </div>
         </div>
 

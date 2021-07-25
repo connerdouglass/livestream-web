@@ -189,16 +189,19 @@
                 border-radius: 4px;
                 display: inline-block;
                 text-align: left;
-            }
 
-            mat-slide-toggle
-            {
-                font-weight: 600;
-                text-transform: uppercase;
-
-                &:not(:last-child)
+                > .item
                 {
-                    margin-bottom: 10px;
+                    &:not(:last-child)
+                    {
+                        margin-bottom: 10px;
+                    }
+
+                    mat-slide-toggle
+                    {
+                        font-weight: 600;
+                        text-transform: uppercase;
+                    }
                 }
             }
 
