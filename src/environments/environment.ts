@@ -9,15 +9,15 @@ export const environment = {
 		hls_baseurl: 'http://localhost:8081',
 		rtmp_baseurl: 'rtmp://localhost',
 	},
-	telegram_user: {
-		id: 1,
-		first_name: 'Test',
-		last_name: 'User',
-		username: 'testuser',
-		photo_url: undefined,
-		auth_date: Math.floor(Date.now() / 1000),
-		hash: '',
-	},
+	// telegram_user: {
+	// 	id: 1,
+	// 	first_name: 'Test',
+	// 	last_name: 'User',
+	// 	username: 'testuser',
+	// 	photo_url: undefined,
+	// 	auth_date: Math.floor(Date.now() / 1000),
+	// 	hash: '',
+	// },
 };
 
 /*

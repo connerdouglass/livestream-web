@@ -9,6 +9,46 @@
         <div class="title">{{ (app_state_service.state$ | async)?.platform_title }}</div>
     </div>
     <div class="right">
-
+        <ng-container *ngIf="!(telegram_auth_service.user$ | async)">
+            <button
+                class="login-button"
+                mat-button
+                (click)="show_login_dropdown = !show_login_dropdown">
+                <ng-container *ngIf="!show_login_dropdown">
+                    <fa-icon
+                        [fixedWidth]="true"
+                        [icon]="icons.login"></fa-icon>
+                    <span>Login</span>
+                </ng-container>
+                <ng-container *ngIf="show_login_dropdown">
+                    <fa-icon
+                        [fixedWidth]="true"
+                        [icon]="icons.login_cancel"></fa-icon>
+                    <span>Close</span>
+                </ng-container>
+            </button>
+            <div
+                *ngIf="show_login_dropdown"
+                class="telegram-login-box">
+                <app-telegram-login-button
+                    *ngIf="app_state_service.state$ | async as app_state"
+                    [botName]="app_state.telegram_bot_username"
+                    (login)="show_login_dropdown = false; telegram_auth_service.storeUser($event)"></app-telegram-login-button>
+            </div>
+        </ng-container>
+        <div
+            *ngIf="telegram_auth_service.user$ | async as user"
+            class="user"
+            (click)="clicked_user()">
+            <div
+                *ngIf="user.photo_url"
+                class="img"
+                [style.background-image]="'url(' + user.photo_url + ')'"></div>
+            <div
+                *ngIf="!user.photo_url"
+                class="noimg">
+                <fa-icon [icon]="icons.default_avatar"></fa-icon>
+            </div>
+        </div>
     </div>
 </div>
