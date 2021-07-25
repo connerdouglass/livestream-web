@@ -59,27 +59,27 @@ export class TelegramNotificationsService implements NotificationsService {
     /**
      * Observable to all of the subscriptions for the current user
      */
-    private readonly subscriptions$ = this.state$
-        .pipe(map(state => state?.subs ?? []))
-        .pipe(switchMap(initial_subs => this.sub_change$.pipe(scan((subs, change) => {
+    public readonly subscriptions$ = this.state$
+        .pipe(map(state => state.subs))
+        .pipe(switchMap(initial_subs => merge(
+            of(initial_subs),
+            this.sub_change$.pipe(scan((subs, change) => {
 
-            // Add the sub, if it's not already in the list
-            if (change.subbed) {
-                if (!subs.some(sub => sub.creator_id === change.creator_id)) {
+                // Add the sub, if it's not already in the list
+                if (change.subbed) {
                     return [
                         ...subs,
                         { creator_id: change.creator_id }
                     ];
                 }
-                return subs;
-            }
-
-            // If the sub is being removed, remove it
-            else {
-                return subs.filter(sub => sub.creator_id !== change.creator_id);
-            }
-
-        }, initial_subs))))
+    
+                // If the sub is being removed, remove it
+                else {
+                    return subs.filter(sub => sub.creator_id !== change.creator_id);
+                }
+    
+            }, initial_subs))))
+        )
         .pipe(shareReplay(1));
 
     /**
