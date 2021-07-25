@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHome } from '@fortawesome/free-solid-svg-icons';
 import { AppStateService } from '../../services/app_state.service';
 import { TelegramAuthService } from '../../services/telegram_auth.service';
 
@@ -12,6 +12,7 @@ export class DrawerComponent {
 
 	public readonly icons = {
 		drawer: faBars,
+		home: faHome,
 	};
 
 	@Output('clickedLink') public clickedLink = new EventEmitter<void>();

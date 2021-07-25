@@ -3,7 +3,9 @@
     <div class="links">
         <a
             routerLink="/"
+            matRipple
             (click)="clickedLink.emit()">
+            <fa-icon [icon]="icons.home"></fa-icon>
             <span>Home</span>
         </a>
     </div>

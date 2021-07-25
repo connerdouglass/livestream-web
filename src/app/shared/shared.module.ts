@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -51,6 +52,7 @@ import { TitleService } from './services/title.service';
 		MatProgressSpinnerModule,
 		MatTooltipModule,
 		MatSlideToggleModule,
+		MatRippleModule,
 	],
 	exports: [
 		CreatorProfileComponent,
