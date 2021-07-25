@@ -189,9 +189,7 @@ export class VideoPlayer implements OnInit, OnDestroy {
     }
 
     public supports_pip(): boolean {
-        return [
-            'requestPictureInPicture',
-        ].some(key => key in HTMLElement.prototype);
+        return !!(this.video_element?.nativeElement as any)?.requestPictureInPicture;
     }
 
     public is_pip(): boolean {
