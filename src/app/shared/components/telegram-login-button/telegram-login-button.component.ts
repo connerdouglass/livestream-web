@@ -38,7 +38,7 @@ const randomSeed = parseInt(`${Math.random() * 1e7}`);
 
 @Component({
     selector: 'app-telegram-login-button',
-    template: `<div #scriptContainer></div>`
+    template: `<div style="display: inline-block;" #scriptContainer></div>`
 })
 export class TelegramLoginButtonComponent implements AfterViewInit {
 
