@@ -4,13 +4,13 @@
     [class.fullscreen]="is_fullscreen()">
     <div class="video-wrap">
         <div class="video-overlay">
-            <div
+            <!-- <div
                 *ngIf="video_ready && video.muted"
                 class="unmute-button"
                 (click)="unmute()">
                 <fa-icon [icon]="icons.mute"></fa-icon>
                 <span>Click to Un-Mute</span>
-            </div>
+            </div> -->
             <div
                 *ngIf="!video_ready"
                 class="loading-spinner">
@@ -20,7 +20,8 @@
             </div>
             <div
                 *ngIf="video_ready"
-                class="controls">
+                class="controls"
+                [class.keep-visible]="video.muted || video.paused">
                 <div class="left">
                     <div
                         class="control mute"

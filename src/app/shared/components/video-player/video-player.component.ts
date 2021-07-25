@@ -178,6 +178,7 @@ export class VideoPlayer implements OnInit, OnDestroy {
         if (element.requestFullscreen) element.requestFullscreen();
         else if (element.mozRequestFullScreen) element.mozRequestFullScreen();
         else if (element.webkitRequestFullscreen) element.webkitRequestFullscreen((Element as any).ALLOW_KEYBOARD_INPUT);
+        else if (element.webkitEnterFullScreen) element.webkitEnterFullScreen();
         else if (element.msRequestFullscreen) element.msRequestFullscreen();
 
     }
