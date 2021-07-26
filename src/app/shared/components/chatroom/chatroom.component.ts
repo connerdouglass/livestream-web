@@ -69,16 +69,17 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 			])
 			.pipe(takeUntil(this.destroyed$))
 			.subscribe(([ user, _ ]) => {
+				if (!user) return;
 				this.chatroom_frame?.nativeElement.contentWindow?.postMessage({
 					type: 'auth',
 					user: {
 						username: this.format_username(user),
-						photo_url: user?.photo_url,
-						moderator: user?.username && [
+						photo_url: user.photo_url,
+						moderator: user.username && [
 							'thealialexander',
 							'joelnorthrup',
 							'connerdouglass',
-						].includes(user?.username),
+						].includes(user.username),
 					},
 				}, '*');
 			});
