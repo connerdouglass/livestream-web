@@ -75,11 +75,7 @@ export class ChatRoomComponent implements OnInit, OnDestroy {
 					user: {
 						username: this.format_username(user),
 						photo_url: user.photo_url,
-						moderator: user.username && [
-							'thealialexander',
-							'joelnorthrup',
-							'connerdouglass',
-						].includes(user.username),
+						moderator: false,//user.username && new [].includes(user.username),
 					},
 				}, '*');
 			});
